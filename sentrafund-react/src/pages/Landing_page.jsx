@@ -2,6 +2,8 @@ import React from 'react'
 
 import Header from '../components/Header'
 import CompleteTradingSolutions from '../components/TradingSolutions'
+import InvestmentPlans from '../components/InvestmentPlans'
+import ChooseSentrafunds from '../components/ChooseSentrafunds'
 
 
 
@@ -12,6 +14,8 @@ function Landing_page() {
     <div>
     <Header />
     <CompleteTradingSolutions />
+    <InvestmentPlans />
+    <ChooseSentrafunds />
     </div>
   )
 }
