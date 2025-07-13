@@ -60,7 +60,7 @@ function Footer() {
           {/* my mild line */}
           <div className='bg-[#666666] w-full h-px'></div>
           {/* the last section */}
-          <section className='flex justify-between mx-14 items-center mt-5 '>
+          <section className='flex justify-between mx-14 items-center mt-5 mb-0'>
             <div className='flex gap-2 items-center'>
               <div> <img src="ic_baseline-copyright.svg" alt="copyright icon" /></div>
               <div> 2025 Sentrafunds. All rights reserved</div>
