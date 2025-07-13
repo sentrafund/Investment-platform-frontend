@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import sentrafundcoin from "../../assets/sentrafundcoin.png";
-import loginBg from "../../assets/loginbg.png";
+import sentrafundcoin from "../assets/sentrafundcoin.png";
+import loginBg from "../assets/loginbg.png";
 
 export default function SentrafundRegister() {
   const [formData, setFormData] = useState({
