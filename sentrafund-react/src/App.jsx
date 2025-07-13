@@ -1,10 +1,10 @@
-import SentrafundLogin from "./components/auth/login";
-import SentrafundRegister from "./components/auth/register";
+
 import Carousel from "./components/Courasel";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 import Howitworks from "./components/Howitworks";
 import Landing_page from "./pages/Landing_page";
+import SentrafundRegister from "./pages/register";
 
 function App() {
   return (
@@ -15,7 +15,6 @@ function App() {
       <Faq />
       <Footer /> */}
       <SentrafundRegister/>
-      {/* <SentrafundLogin/> */}
     </>
   );
 }
