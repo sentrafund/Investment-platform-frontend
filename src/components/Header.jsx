@@ -1,10 +1,12 @@
-import React from 'react';
-import Button from '../components/Button';
-import BorderButton from '../components/BorderButton';
-import Logo from '../assets/CoinVertical.svg';
-import BgVideo from '../assets/bgvideo.mp4';
+import React from "react";
+import Button from "../components/Button";
+import BorderButton from "../components/BorderButton";
+import Logo from "../assets/CoinVertical.svg";
+import BgVideo from "../assets/bgvideo.mp4";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <div className="relative">
       {/* Background video */}
@@ -13,8 +15,7 @@ function Header() {
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-      >
+        className="absolute top-0 left-0 w-full h-full object-cover z-0">
         <source src={BgVideo} type="video/mp4 " />
       </video>
 
@@ -39,20 +40,21 @@ function Header() {
 
           {/* Buttons */}
           <div className="flex gap-2.5">
-            <Button name="Register" />
-            <BorderButton name="Login" />
+            <Button name="Register" onClick={() => navigate("/register")} />
+            <BorderButton name="Login" onClick={() => navigate("/login")} />
           </div>
         </header>
 
         {/* Hero Section */}
         <div className="flex flex-col justify-center items-center gap-5 h-[calc(100vh-100px)] px-4 text-center">
           <h1 className="text-5xl w-11/12 md:w-8/12 text-white font-bold leading-tight">
-            Transform Your Investments with <span className="text-[#F59E0B]">SENTRAFUND</span>
+            Transform Your Investments with{" "}
+            <span className="text-[#F59E0B]">SENTRAFUND</span>
           </h1>
           <p className="text-2xl w-11/12 md:w-8/12 text-white">
-            Join the future of trading with SENTRAFUND.
-            Our advanced platform combines cutting-edge technology with
-            institutional-grade analytics to maximize your investment potential.
+            Join the future of trading with SENTRAFUND. Our advanced platform
+            combines cutting-edge technology with institutional-grade analytics
+            to maximize your investment potential.
           </p>
           <Button name="Start Investing" />
         </div>
