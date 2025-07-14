@@ -3,10 +3,10 @@ import {
   FaChartLine,
   FaBitcoin,
   FaCheck,
-  FaMoneyBillWave,
   FaBalanceScale,
   FaGlobe,
 } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 import Button from './Button';
 
 const features = [
@@ -49,34 +49,41 @@ const features = [
 
 function TradingSolutionCard() {
   return (
-    <section className="bg-[#F4FFFF] py-16 px-4 text-center">
+    <section className="bg-[#F4FFFF] py-16 px-4 sm:px-6 lg:px-12 text-center">
       <h2 className="text-3xl font-bold mb-4">Complete Trading Solutions</h2>
-      <p className="text-gray-600 max-w-2xl mx-auto mb-12">
+      <p className="text-gray-600 max-w-2xl mx-auto mb-12 text-base">
         Everything you need to trade and invest across multiple asset classes,
         all from one powerful platform designed for modern investors.
       </p>
 
-      <div className="flex flex-wrap justify-center gap-x-8 gap-y-12 max-w-6xl mx-auto mb-16">
+      {/* Animated grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16">
         {features.map(({ icon, title, description, list }, index) => (
-          <div
+          <motion.div
             key={index}
-            className="bg-white rounded-xl shadow-md p-6 text-left hover:shadow-lg transition w-[300px]"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-left"
           >
-            <div className="flex flex-col items-center gap-3 mb-4">
-              <div className="p-2 bg-gray-100 rounded-full">{icon}</div>
+            <div className="flex flex-col items-center text-center gap-3 mb-4">
+              <div className="p-3 bg-gray-100 rounded-full">{icon}</div>
               <h3 className="text-xl font-semibold">{title}</h3>
-              <p>{description}</p>
+              <p className="text-gray-600 text-sm">{description}</p>
             </div>
-            <ul className="list-disc pl-6 text-gray-600 space-y-1">
-              {list.map((item, index) => (
-                <li key={index}>{item}</li>
+            <ul className="list-disc pl-6 text-gray-700 text-sm space-y-1">
+              {list.map((item, i) => (
+                <li key={i}>{item}</li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         ))}
       </div>
 
-      <Button name="Start Investing" />
+      <div className="flex justify-center">
+        <Button name="Start Investing" />
+      </div>
     </section>
   );
 }
