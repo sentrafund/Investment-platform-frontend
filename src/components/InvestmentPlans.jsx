@@ -18,7 +18,7 @@ const plans = [
     title: 'Basic',
     price: '$200',
     desc: 'Invest in bonds and stocks',
-    min: '$2.00',
+    min: '$200',
     max: '$1,999',
     duration: '14 days',
     popular: false,
