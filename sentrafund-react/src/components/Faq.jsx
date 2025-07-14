@@ -5,11 +5,11 @@ const FaqItems = ({ index, title, content, isOpen, onClick }) => (
     {/* border-b border-gray-200... if border is needed */}
     <button
       onClick={() => onClick(index)}
-       className={`flex items-center w-full py-4 text-left text-lg font-semibold text-gray-800 transition-colors duration-300 ${
-        isOpen ? "bg-amber-500 text-white": '' }`}
+       className={`flex items-center w-full py-4 text-left text-lg font-semibold text-gray-800 transition-colors duration-600 ease-in-out ${
+        isOpen ? "bg-amber-500 text-white p-3": '' }`}
     >
       {/* Icon on the left */}
-      <span className="mr-3 text-2xl select-none">{isOpen ? "−" : "+"}</span>
+      <span className=" p-3 mr-3 text-2xl select-none">{isOpen ? "−" : "+"}</span>
       {title}
     </button>
     <div

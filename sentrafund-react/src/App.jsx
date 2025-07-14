@@ -1,12 +1,21 @@
+import Carousel from "./components/Courasel";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
+import Howitworks from "./components/Howitworks";
+import Landing_page from "./pages/Landing_page";
+import SentrafundLogin from "./pages/login";
+import SentrafundRegister from "./pages/register";
 
 function App() {
   return (
     <>
-      <h1 className="text-6xl text-amber-600 text-center">SentraFund</h1>
-      <Faq/>
-      <Footer/>
+      {/* <Landing_page />
+      <Carousel />
+      <Howitworks />
+      <Faq />
+      <Footer /> */}
+      {/* <SentrafundRegister /> */}
+      <SentrafundLogin />
     </>
   );
 }
