@@ -53,7 +53,11 @@ function Header() {
             <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
               Home
             </li>
-            <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
+            <li
+              className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2"
+              onClick={() => {
+                navigate("/dashboard");
+              }}>
               Investment Plans
             </li>
             <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
@@ -98,7 +102,7 @@ function Header() {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden absolute top-full left-0 w-full bg-[#1A2B4C] bg-opacity-95 backdrop-blur-sm transition-all duration-300 ${
+          className={`lg:hidden absolute left-0 w-full bg-[#1A2B4C] bg-opacity-95 backdrop-blur-sm transition-all duration-300 ${
             isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}>
           <div className="px-4 py-4 space-y-4">
@@ -135,7 +139,11 @@ function Header() {
             transition={{ duration: 0.8 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl w-full sm:w-11/12 md:w-10/12 lg:w-8/12 text-white font-bold leading-tight">
             Transform Your Investments with{" "}
-            <span className="text-[#F59E0B] drop-shadow-lg">SENTRAFUND</span>
+            {!isMobileMenuOpen && (
+              <span className="text-[#F59E0B] drop-shadow-lg hidden md:inline">
+                SENTRAFUND
+              </span>
+            )}
           </motion.h1>
 
           <motion.p
@@ -153,7 +161,12 @@ function Header() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
             className="mt-4 sm:mt-6 lg:mt-8">
-            <Button name="Start Investing" />
+            <Button
+              name="Start Investing"
+              onClick={() => {
+                navigate("/dashboard");
+              }}
+            />
           </motion.div>
         </div>
       </div>
