@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Eye, EyeOff } from "lucide-react";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
 import loginBg from "../assets/loginbg.png";
@@ -15,6 +17,7 @@ export default function SentrafundRegister() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   const csrfToken =
     "SCUtad4GLspfPzgjBsLe192kkfp39gvOyMRsuPviRLDzvweeTI1xmCFlNiV0bmN0";
@@ -87,16 +90,20 @@ export default function SentrafundRegister() {
       const result = await registerUser(payload, csrfToken);
       console.log("registration call :", result);
 
-      if (result?.detail) {
-        setSuccess(
-          "Registration successful! Please check your email for verification."
-        );
+      if (result?.key) {
+        localStorage.setItem("Token", result.key);
+
         setFormData({
           fullName: "",
           email: "",
           password: "",
           confirmPassword: "",
         });
+        setSuccess("Registration successful! Redirecting to login...");
+
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
       } else {
         // Display appropriate error message from API response
         if (result.username) {

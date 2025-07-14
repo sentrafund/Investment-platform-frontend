@@ -5,17 +5,18 @@ import Howitworks from "./components/Howitworks";
 import Landing_page from "./pages/Landing_page";
 import SentrafundLogin from "./pages/login";
 import SentrafundRegister from "./pages/register";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
-      {/* <Landing_page />
-      <Carousel />
-      <Howitworks />
-      <Faq />
-      <Footer /> */}
-      {/* <SentrafundRegister /> */}
-      <SentrafundLogin />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Landing_page />} />
+          <Route path="/login" element={<SentrafundLogin />} />
+          <Route path="/register" element={<SentrafundRegister />} />
+        </Routes>
+      </Router>
     </>
   );
 }

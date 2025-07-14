@@ -1,13 +1,16 @@
-import React from 'react'
+import React from "react";
 
-function BorderButton( props) {
+function BorderButton({ name, onClick }) {
   return (
     <div>
-         <button className='border border-[#F59E0B]-800 rounded-xl p-2.5 w-28 text-[#F59E0B]'>
-          {props.name} 
-          </button>
+      <button
+        onClick={onClick}
+        className="border border-[#F59E0B] rounded-xl p-2.5 w-28 text-[#F59E0B] cursor-pointer"
+      >
+        {name}
+      </button>
     </div>
-  )
+  );
 }
 
-export default BorderButton
+export default BorderButton;
