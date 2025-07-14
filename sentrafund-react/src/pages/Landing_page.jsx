@@ -19,7 +19,7 @@ function Landing_page() {
       <Carousel />
       <Howitworks />
       <Faqs />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

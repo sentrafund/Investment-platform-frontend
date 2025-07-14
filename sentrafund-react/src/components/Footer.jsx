@@ -3,8 +3,8 @@ import React from "react";
 function Footer() {
   return (
     <div>
-      <main className="w-[1440px] h-96 text-white bg-blue-950">
-        <section className="flex items-start justify-around mb-13 w-[1271px] align-text-top ">
+      <main className=" h-96 text-white bg-blue-950">
+        <section className="flex items-start justify-around mb-13 align-text-top ">
           {/* First section of footer */}
           <div className="mt-10">
             <div className="flex">
