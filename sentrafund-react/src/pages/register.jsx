@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
 import loginBg from "../assets/loginbg.png";
-
+import axios from "axios";
 export default function SentrafundRegister() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -13,6 +13,35 @@ export default function SentrafundRegister() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const csrfToken =
+    "SCUtad4GLspfPzgjBsLe192kkfp39gvOyMRsuPviRLDzvweeTI1xmCFlNiV0bmN0";
+
+  async function registerUser(payload, csrfToken) {
+    try {
+      const response = await axios.post(
+        "https://sentrafund.onrender.com/api/auth/registration/",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            ...(csrfToken && { "X-CSRFTOKEN": csrfToken }),
+          },
+          withCredentials: true,
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return error.response?.data;
+      }
+      throw error;
+    }
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,16 +50,73 @@ export default function SentrafundRegister() {
       [name]: value,
     }));
   };
-
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+
+    // Reset UI states
+    setError("");
+    setSuccess("");
     setIsLoading(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Basic validation
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      setError("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
 
-    setIsLoading(false);
-    console.log("Form submitted:", formData);
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    const payload = {
+      username: formData.fullName,
+      email: formData.email,
+      password1: formData.password,
+      password2: formData.confirmPassword,
+    };
+
+    try {
+      const result = await registerUser(payload, csrfToken);
+      console.log("registration call :", result);
+
+      if (result?.detail) {
+        setSuccess(
+          "Registration successful! Please check your email for verification."
+        );
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+      } else {
+        // Display appropriate error message from API response
+        if (result.username) {
+          setError(result.username[0]);
+        } else if (result.email) {
+          setError(result.email[0]);
+        } else if (result.password1) {
+          setError(result.password1[0]);
+        } else if (result.password2) {
+          setError(result.password2[0]);
+        } else {
+          setError("Registration failed. Please try again.");
+        }
+      }
+    } catch (err) {
+      console.error("Registration error:", err);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -179,6 +265,16 @@ export default function SentrafundRegister() {
                   "Sign Up"
                 )}
               </button>
+              {error && (
+                <div className="mt-3 text-sm text-red-600 text-center">
+                  {error}
+                </div>
+              )}
+              {success && (
+                <div className="mt-3 text-sm text-green-600 text-center">
+                  {success}
+                </div>
+              )}
             </div>
 
             {/* Divider */}

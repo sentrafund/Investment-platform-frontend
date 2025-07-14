@@ -10,8 +10,15 @@ export default function SentrafundLogin() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const handleInputChange = (e) => {
+  const csrfToken =
+    "SCUtad4GLspfPzgjBsLe192kkfp39gvOyMRsuPviRLDzvweeTI1xmCFlNiV0bmN0";
+
+
+
+   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -19,14 +26,54 @@ export default function SentrafundLogin() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    if (e) e.preventDefault();
-    setIsLoading(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+const handleSubmit = async (e) => {
+  if (e) e.preventDefault();
+  setIsLoading(true);
+  setError("");
+
+  // Basic validation
+  if (!formData.email || !formData.password) {
+    setError("Please enter both email and password");
     setIsLoading(false);
-    console.log("Form submitted:", formData);
-  };
+    return;
+  }
+
+  try {
+    const response = await fetch('https://sentrafund.onrender.com/api/auth/login/', {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFTOKEN': csrfToken,
+      },
+      body: JSON.stringify({
+        username: formData.email,
+        password: formData.password,
+      }),
+    });
+console.log("Login response:", response);
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Login successful:", data);
+      // Save token and redirect user
+      localStorage.setItem('authToken', data.key); // Store token (if 'key' is returned)
+
+      setSuccess("Login successful!");
+    } else {
+      const errorData = await response.json();
+      console.error("Login failed:", errorData);
+      setError("Invalid credentials. Please try again.");
+    }
+  } catch (error) {
+    console.error("Network error:", error);
+    setError("A network error occurred. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleGoogleLogin = () => {
     console.log("Google login");
@@ -64,6 +111,13 @@ export default function SentrafundLogin() {
               Log in to continue
             </h2>
           </div>
+
+          {/* Display Error Message */}
+          {error && (
+            <div className="mb-4 text-red-600 text-center text-sm font-medium">
+              {error}
+            </div>
+          )}
 
           {/* Form */}
           <div className="space-y-6">
