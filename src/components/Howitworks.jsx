@@ -3,17 +3,19 @@ import Investmentcards from "./Investmentcards";
 
 function Howitworks() {
   return (
-    <div>
-      <div className="mb-15 mt-15">
-        <h1 className="text-center mb-5 text-blue-900 text-xl">
-          {" "}
-          How it works{" "}
-        </h1>
-        <h1 className="text-center mb-5 text-3xl">
+    <section className="py-16 px-4 sm:px-6 lg:px-12 bg-white text-center">
+      {/* Header Section */}
+      <div className="mb-12">
+        <h2 className="text-blue-900 text-lg sm:text-xl font-medium mb-2">
+          How it works
+        </h2>
+        <h1 className="text-2xl sm:text-3xl font-bold">
           Investing with <span className="text-amber-500">SENTRAFUND</span>
         </h1>
       </div>
-      <div className=" h-[316px] gap-[68px] flex justify-center  ">
+
+      {/* Responsive Card Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto justify-items-center">
         <Investmentcards
           title="Sign Up"
           content="Create your account on our secure platform and gain access to our investing tools. It's easy and quick, just provide some basic information, and you'll be ready to start your investing journey."
@@ -28,10 +30,10 @@ function Howitworks() {
         />
         <Investmentcards
           title="Withdraw Funds"
-          content="In your SENTRAFUND account, you can decide to to withdraw funds when you reach your account threshold."
+          content="In your SENTRAFUND account, you can decide to withdraw funds once you reach your account threshold."
         />
       </div>
-    </div>
+    </section>
   );
 }
 
