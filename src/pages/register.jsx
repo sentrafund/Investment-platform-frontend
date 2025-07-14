@@ -25,7 +25,7 @@ export default function SentrafundRegister() {
   async function registerUser(payload, csrfToken) {
     try {
       const response = await axios.post(
-        "https://sentrafund1.onrender.com/api/auth/registration/",
+        "https://sentrafund.onrender.com/api/auth/registration/",
         payload,
         {
           headers: {
