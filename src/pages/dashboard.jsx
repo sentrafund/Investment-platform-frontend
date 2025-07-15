@@ -1,17 +1,38 @@
 import React from "react";
 import HeaderComponent from "../components/Navlink";
 import Footer from "../components/Footer";
-
+import DashBoardNavigation from "../components/DashBoardNav";
+import TradingDashboard from "../components/TradingDashboard";
+import { useState } from "react";
+import Withdrawal from "./Withdrawal";
 const Dashboard = () => {
+  const [activeTab, setActiveTab] = useState("Dashboard");
+  const renderContent = () => {
+    switch (activeTab) {
+      case "Deposit":
+        return <DepositTab />;
+      case "Withdrawal":
+        return <Withdrawal />;
+      case "History":
+        return <HistoryTab />;
+      case "Profile":
+        return <ProfileTab />;
+      default:
+        return <TradingDashboard />;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#f5fdff]">
       <HeaderComponent />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-        <p>Welcome to your dashboard!</p>
-        {/* Add more dashboard content here */}
+        <DashBoardNavigation
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <main className="max-w-6xl mx-auto p-6">{renderContent()}</main>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
