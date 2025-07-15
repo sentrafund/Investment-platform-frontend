@@ -3,8 +3,11 @@ import HeaderComponent from "../components/Navlink";
 import Footer from "../components/Footer";
 import DashBoardNavigation from "../components/DashBoardNav";
 import TradingDashboard from "../components/TradingDashboard";
+import DepositTab from "../components/DashboardDeposit";
 import { useState } from "react";
 import Withdrawal from "./Withdrawal";
+import HistoryTab from "../components/DashboardHistory";
+import ProfileTab from "../components/DashboardProfile";
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const renderContent = () => {
