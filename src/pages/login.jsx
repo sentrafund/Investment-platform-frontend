@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import loginbg from "../assets/loginbg.png";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
+import { useNavigate } from "react-router-dom";
 export default function SentrafundLogin() {
   const [formData, setFormData] = useState({
     email: "",
@@ -12,13 +13,11 @@ export default function SentrafundLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  const navigate = useNavigate();
   const csrfToken =
     "SCUtad4GLspfPzgjBsLe192kkfp39gvOyMRsuPviRLDzvweeTI1xmCFlNiV0bmN0";
 
-
-
-   const handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -26,54 +25,58 @@ export default function SentrafundLogin() {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-const handleSubmit = async (e) => {
-  if (e) e.preventDefault();
-  setIsLoading(true);
-  setError("");
-
-  // Basic validation
-  if (!formData.email || !formData.password) {
-    setError("Please enter both email and password");
-    setIsLoading(false);
-    return;
-  }
-
-  try {
-    const response = await fetch('https://sentrafund.onrender.com/api/auth/login/', {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRFTOKEN': csrfToken,
-      },
-      body: JSON.stringify({
-        username: formData.email,
-        password: formData.password,
-      }),
-    });
-console.log("Login response:", response);
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Login successful:", data);
-      // Save token and redirect user
-      localStorage.setItem('authToken', data.key); // Store token (if 'key' is returned)
-
-      setSuccess("Login successful!");
-    } else {
-      const errorData = await response.json();
-      console.error("Login failed:", errorData);
-      setError("Invalid credentials. Please try again.");
+    // Basic validation
+    if (!formData.email || !formData.password) {
+      setError("Please enter both email and password");
+      setIsLoading(false);
+      return;
     }
-  } catch (error) {
-    console.error("Network error:", error);
-    setError("A network error occurred. Please try again.");
-  } finally {
-    setIsLoading(false);
-  }
-};
 
+    try {
+      const response = await fetch(
+        "https://sentrafund.onrender.com/api/auth/login/",
+        {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            "X-CSRFTOKEN": csrfToken,
+          },
+          body: JSON.stringify({
+            username: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
+      console.log("Login response:", response);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Login successful:", data);
+        // Save token and redirect user
+        localStorage.setItem("authToken", data.key); // Store token (if 'key' is returned)
+
+        setSuccess("Login successful!");
+        setTimeout(() => {
+          navigate("/dashboard"); // Redirect to dashboard or home page
+        }, 1000); // Redirect after 2 second
+      } else {
+        const errorData = await response.json();
+        console.error("Login failed:", errorData);
+        setError("Invalid credentials. Please try again.");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      setError("A network error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // const handleGoogleLogin = () => {
   //   console.log("Google login");
@@ -116,6 +119,12 @@ console.log("Login response:", response);
           {error && (
             <div className="mb-4 text-red-600 text-center text-sm font-medium">
               {error}
+            </div>
+          )}
+          {/* Display Success Message */}
+          {success && (
+            <div className="mb-4 text-green-600 text-center text-sm font-medium">
+              {success}
             </div>
           )}
 
@@ -206,7 +215,7 @@ console.log("Login response:", response);
             </div>
 
             {/* Divider */}
-            <div className="relative">
+            {/* <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300" />
               </div>
@@ -215,7 +224,7 @@ console.log("Login response:", response);
                   Continue with
                 </span>
               </div>
-            </div>
+            </div> */}
 
             {/* Social Login Buttons */}
             {/* <div className="grid grid-cols-2 gap-3">
