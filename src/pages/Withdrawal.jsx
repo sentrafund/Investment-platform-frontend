@@ -16,7 +16,7 @@ function Withdrawal() {
   </nav>
   <h2 className="text-2xl font-semibold text-center mb-6">Request a withdrawal</h2>
   {/* Form Container */}
-  <div className="bg-white rounded-lg shadow-md w-full max-w-md px-6 py-">
+  <div className="bg-white rounded-lg w-full max-w-md px-6 py-">
     <form className="space-y-4">
       {/* Name */}
       <div>
