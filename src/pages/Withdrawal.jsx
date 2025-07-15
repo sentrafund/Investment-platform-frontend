@@ -1,7 +1,9 @@
 import React from "react";
+import Header from "../components/Header";
 function Withdrawal() {
   return (
     <div>
+  
     
       <div className="min-h-screen bg-[#f5fdff] py-10 px-4 flex flex-col items-center">
         <h2 className="text-2xl font-semibold text-center mb-6">
