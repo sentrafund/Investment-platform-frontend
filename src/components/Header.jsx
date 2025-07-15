@@ -161,12 +161,12 @@ function Header() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
             className="mt-4 sm:mt-6 lg:mt-8">
-            <Button
+            {/* <Button
               name="Start Investing"
               onClick={() => {
                 navigate("/dashboard");
               }}
-            />
+            /> */}
           </motion.div>
         </div>
       </div>
