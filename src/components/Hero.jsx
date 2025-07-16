@@ -37,7 +37,7 @@ function Hero() {
           >
             Transform Your Investments with{" "}
             {!isMobileMenuOpen && (
-              <span className="text-[#F59E0B] drop-shadow-lg hidden md:inline">
+              <span className="text-[#F59E0B] drop-shadow-lg md:inline">
                 SENTRAFUND
               </span>
             )}
