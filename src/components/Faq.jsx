@@ -5,14 +5,14 @@ const FaqItems = ({ index, title, content, isOpen, onClick }) => (
   <div className="border-b border-gray-200">
     <button
       onClick={() => onClick(index)}
-      className={`flex items-center w-full text-left text-base sm:text-lg font-semibold transition-colors duration-300 ${
+      className={`flex items-center w-full text-left text-base sm:text-lg font-semibold transition-colors duration-300 hover:cursor-pointer ${
         isOpen
           ? "bg-amber-500 text-white"
           : "text-gray-800 hover:text-amber-500"
       } px-4 py-3 rounded-md`}
       aria-expanded={isOpen}
       aria-controls={`faq-content-${index}`}>
-      <span className="text-2xl mr-3 select-none">{isOpen ? "−" : "+"}</span>
+      <span className="text-2xl mr-3 select-none ">{isOpen ? "−" : "+"}</span>
       {title}
     </button>
 
@@ -92,7 +92,7 @@ const Faqs = () => {
           ))}
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           {rightItems.map((item, i) => {
             const globalIndex = i + 3;
             return (

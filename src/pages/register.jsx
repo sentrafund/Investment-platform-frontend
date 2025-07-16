@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { Eye, EyeOff } from "lucide-react";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
@@ -256,7 +256,6 @@ export default function SentrafundRegister() {
                 </button>
               </div>
             </div>
-
             {/* Submit Button */}
             <div>
               <button
@@ -283,7 +282,12 @@ export default function SentrafundRegister() {
                 </div>
               )}
             </div>
-
+            <div className="flex p-1">
+                  <p className="mr-1">Already have an account?</p>
+                  <NavLink to={"/login"}>
+                    <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400"> Login </p>
+                  </NavLink>
+              </div>
             {/* Divider */}
             {/* <div className="relative">
               <div className="absolute inset-0 flex items-center">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import loginbg from "../assets/loginbg.png";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 export default function SentrafundLogin() {
   const [formData, setFormData] = useState({
     email: "",
@@ -181,20 +181,24 @@ export default function SentrafundLogin() {
             </div>
 
             {/* Remember Me */}
-            <div className="flex items-center">
+            <div className="flex items-center justify-between">
+              <div className="flex">
               <input
                 id="rememberMe"
                 name="rememberMe"
                 type="checkbox"
                 checked={formData.rememberMe}
                 onChange={handleInputChange}
-                className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
-              />
+                className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"/>
               <label
                 htmlFor="rememberMe"
                 className="ml-2 block text-sm text-gray-700">
                 Remember me
               </label>
+              </div>
+              <NavLink to={"/"}>
+                <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400"> Forgot password? </p>
+              </NavLink>
             </div>
 
             {/* Submit Button */}
@@ -212,6 +216,12 @@ export default function SentrafundLogin() {
                   "Sign In"
                 )}
               </button>
+            </div>
+            <div className="flex p-1">
+              <p className="mr-1">Don't have an account?</p>
+              <NavLink to={"/register"}>
+                <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400"> Register </p>
+              </NavLink>
             </div>
 
             {/* Divider */}
