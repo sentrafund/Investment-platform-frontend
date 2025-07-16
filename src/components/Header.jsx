@@ -101,12 +101,11 @@ function Header() {
             <div className="flex flex-row justify-between pt-4 border-t border-white/20">
               <Button
                 name="Register"
-                onClick={() => handleNavigation("/register")}
-              />
+                url="/reguster"/>
               <Button
                 name="Login"
-                type="outline"
-                onClick={() => handleNavigation("/login")}
+                type="outline" url="/login"
+
               />
             </div>
           </div>
