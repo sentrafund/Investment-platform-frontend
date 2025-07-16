@@ -33,6 +33,8 @@ function Header() {
 
   const fetchToken = () => {
     const token = localStorage.getItem("authToken");
+    console.log("Token fetched from localStorage:", token);
+
     return token;
   };
 
@@ -81,8 +83,24 @@ function Header() {
 
           {/* Desktop Buttons */}
           <div className="hidden lg:flex gap-2 lg:gap-2.5 ">
-            <Button name="Register" url="/register" />{" "}
-            <Button name="Login" type="outline" url="/login" />
+            {authToken ? (
+              <Button name="Dashboard" url="/dashboard" />
+            ) : (
+              <Button name="Register" url="/register" />
+            )}
+            {authToken ? (
+              <Button
+                name="Logout"
+                type="outline"
+                onClick={() => {
+                  localStorage.removeItem("authToken");
+                  setAuthToken("");
+                  navigate("/login");
+                }}
+              />
+            ) : (
+              <Button name="Login" type="outline" url="/login" />
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -123,17 +141,46 @@ function Header() {
                 Contact
               </li>
             </ul>
-
             <div className="flex flex-row justify-between pt-4 border-t border-white/20">
-              <Button
-                name="Register"
-                onClick={() => handleNavigation("/register")}
-              />
-              <Button
-                name="Login"
-                type="outline"
-                onClick={() => handleNavigation("/login")}
-              />
+              {!authToken ? (
+                <>
+                  <Button
+                    name="Register"
+                    onClick={() => {
+                      handleNavigation("/register");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                  <Button
+                    name="Login"
+                    type="outline"
+                    onClick={() => {
+                      handleNavigation("/login");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  <Button
+                    name="Dashboard"
+                    onClick={() => {
+                      handleNavigation("/dashboard");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                  <Button
+                    name="Logout"
+                    type="outline"
+                    onClick={() => {
+                      localStorage.removeItem("authToken");
+                      setAuthToken("");
+                      setIsMobileMenuOpen(false);
+                      navigate("/login");
+                    }}
+                  />
+                </>
+              )}
             </div>
           </div>
         </div>
