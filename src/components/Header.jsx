@@ -7,19 +7,6 @@ import BgVideo from "../assets/bgvideo.mp4";
 import { useNavigate, NavLink } from "react-router-dom";
 import BrandIcon from "./BrandIcon";
 
-function MyNavlink(pros) {
-  return (
-    <NavLink
-      to="/#plans"
-      className={({ isActive, isPending }) =>
-        isPending ? "pending" : isActive ? "active" : ""
-      }
-    >
-      Investment Plans
-    </NavLink>
-  );
-}
-
 function Header() {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -66,9 +53,6 @@ function Header() {
             >
               Investment Plans
             </li>
-            <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
-              Contact
-            </li>
           </ul>
 
           {/* Desktop Buttons */}
@@ -110,11 +94,7 @@ function Header() {
           <div className="px-4 py-4 ">
             <ul className=" text-white font-medium">
               <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2 border-b border-white/10">
-                Investment Plans
-              </li>
-              <MyNavlink />
-              <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2 border-white/10">
-                Contact
+                <NavLink to={"/dashboard"}>Investment Plans</NavLink>
               </li>
             </ul>
 
