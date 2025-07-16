@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { TrendingUp, TrendingDown } from "lucide-react";
 import bitcoin from "../assets/bitcoin .png";
 import ethereum from "../assets/ethereum.png";
 import tether from "../assets/tether-usdt.png";
@@ -8,6 +7,7 @@ import xrp from "../assets/xrp.png";
 import dogecoin from "../assets/dogecoin.png";
 import greenUp from "../assets/green-drop-up.png";
 import redDown from "../assets/red-drop-down.png";
+
 export default function CoinFeedDashboard() {
   const [cryptoData, setCryptoData] = useState([
     {
@@ -61,10 +61,8 @@ export default function CoinFeedDashboard() {
   ]);
 
   const [activeTraders] = useState(25000);
-  const [animatedValues, setAnimatedValues] = useState({});
 
   useEffect(() => {
-    // Simulate real-time price updates
     const interval = setInterval(() => {
       setCryptoData((prev) =>
         prev.map((crypto) => ({
@@ -79,14 +77,12 @@ export default function CoinFeedDashboard() {
   }, []);
 
   const formatPrice = (price) => {
-    if (price >= 1) {
-      return `$ ${price.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`;
-    } else {
-      return `$ ${price.toFixed(6)}`;
-    }
+    return price >= 1
+      ? `$ ${price.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}`
+      : `$ ${price.toFixed(6)}`;
   };
 
   const formatChange = (change) => {
@@ -94,76 +90,65 @@ export default function CoinFeedDashboard() {
     return `${sign}${change.toFixed(2)}%`;
   };
 
-  const getChangeColor = (change) => {
-    return change >= 0 ? "text-green-400" : "text-red-400";
-  };
+  const getChangeColor = (change) =>
+    change >= 0 ? "text-green-400" : "text-red-400";
 
   return (
     <div className="min-h-screen p-4 sm:p-6">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex items-center space-x-3 mb-4">
-            <h1 className="text-yellow-500 text-lg sm:text-xl font-semibold">
-              {activeTraders.toLocaleString()}+ Active Traders
-            </h1>
-          </div>
+        <div className="mb-6 sm:mb-10">
+          <h1 className="text-yellow-500 text-lg sm:text-xl font-semibold text-center sm:text-left">
+            {activeTraders.toLocaleString()}+ Active Traders
+          </h1>
         </div>
 
-        {/* Crypto Cards */}
-        <div className="bg-[#1A2B4C] rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl">
-          <div className="space-y-3 sm:space-y-4">
-            {cryptoData.map((crypto, index) => (
+        {/* Coin Feed */}
+        <div className="bg-[#1A2B4C] rounded-2xl p-4 sm:p-6 shadow-xl">
+          <div className="space-y-4">
+            {cryptoData.map((crypto) => (
               <div
                 key={crypto.symbol}
-                className="group backdrop-blur-sm  rounded-xl sm:rounded-2xl p-4 sm:p-5 transition-all duration-300 transform hover:scale-[1.01]">
-                <div className="flex items-center justify-between">
-                  {/* Left side - Icon and Name */}
-                  <div className="flex items-center space-x-3 sm:space-x-4 flex-1">
-                    <div
-                      className={`
-                      w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl
-                      ${crypto.color} group-hover:scale-110 transition-transform duration-200
-                    `}>
-                      <img src={crypto.icon} alt="crypto icon" />
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-white font-semibold text-sm sm:text-base truncate">
-                        {crypto.name}
-                      </h3>
-                      <p className="text-gray-400 text-xs sm:text-sm">
-                        {crypto.symbol}
-                      </p>
-                    </div>
+                className="flex flex-col sm:flex-row sm:items-center justify-between rounded-xl px-4 py-4 sm:py-5 hover:scale-[1.01] transition transform duration-300">
+                {/* Left - Icon & Name */}
+                <div className="flex items-center space-x-3 flex-1 min-w-0 mb-3 sm:mb-0">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center">
+                    <img
+                      src={crypto.icon}
+                      alt={crypto.symbol}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
+                  <div className="min-w-0">
+                    <h3 className="text-white font-medium text-sm sm:text-base truncate">
+                      {crypto.name}
+                    </h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">
+                      {crypto.symbol}
+                    </p>
+                  </div>
+                </div>
 
-                  {/* Right side - Price and Change */}
-                  <div className="flex items-center space-x-4 sm:space-x-6">
-                    {/* Price */}
-                    <div className="text-right">
-                      <p className="text-white font-semibold text-sm sm:text-base">
-                        {formatPrice(crypto.price)}
-                      </p>
-                    </div>
+                {/* Right - Price & Change */}
+                <div className="flex flex-wrap sm:flex-nowrap items-center justify-between sm:justify-end space-x-4 sm:space-x-6 w-full sm:w-auto">
+                  {/* Price */}
+                  <p className="text-white font-semibold text-sm sm:text-base">
+                    {formatPrice(crypto.price)}
+                  </p>
 
-                    {/* Change */}
-                    <div className="flex items-center space-x-1 sm:space-x-2 min-w-0">
-                      {crypto.change >= 0 ? (
-                        // <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
-                        <img src={greenUp} alt="" />
-                      ) : (
-                        // <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-red-400" />
-                        <img src={redDown} alt="" />
-                      )}
-                      <span
-                        className={`
-                        font-semibold text-xs sm:text-sm
-                        ${getChangeColor(crypto.change)}
-                      `}>
-                        {formatChange(crypto.change)}
-                      </span>
-                    </div>
+                  {/* Change */}
+                  <div className="flex items-center space-x-1">
+                    <img
+                      src={crypto.change >= 0 ? greenUp : redDown}
+                      alt="change-icon"
+                      className="w-4 h-4"
+                    />
+                    <span
+                      className={`font-semibold text-xs sm:text-sm ${getChangeColor(
+                        crypto.change
+                      )}`}>
+                      {formatChange(crypto.change)}
+                    </span>
                   </div>
                 </div>
               </div>
