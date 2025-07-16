@@ -66,7 +66,7 @@ function Header() {
           </ul>
 
           {/* Desktop Buttons */}
-          <div className="hidden sm:flex gap-2 lg:gap-2.5">
+          <div className="hidden sm:hidden gap-2 lg:gap-2.5">
             <Button
               name="Register"
               onClick={() => handleNavigation("/register")}
@@ -102,15 +102,13 @@ function Header() {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden absolute left-0 w-full bg-[#1A2B4C] bg-opacity-95 backdrop-blur-sm transition-all duration-300 ${
+          className={`lg:hidden  absolute left-0 w-full bg-[#1A2B4C] bg-opacity-95 backdrop-blur-sm transition-all duration-300 ${
             isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}>
-          <div className="px-4 py-4 space-y-4">
-            <ul className="space-y-2 text-white font-medium">
-              <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-7 border-b border-white/10">
-                Home
-              </li>
-              <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-7 border-b border-white/10">
+          <div className="px-4 py-4 ">
+            <ul className=" text-white font-medium">
+              
+              <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2 border-b border-white/10">
                 Investment Plans
               </li>
               <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2 border-white/10">
@@ -118,13 +116,14 @@ function Header() {
               </li>
             </ul>
 
-            <div className="flex flex-col gap-3 pt-4 border-t border-white/20">
+            <div className="flex flex-row justify-between pt-4 border-t border-white/20">
               <Button
                 name="Register"
                 onClick={() => handleNavigation("/register")}
               />
-              <BorderButton
+              <Button
                 name="Login"
+                type = "outline"
                 onClick={() => handleNavigation("/login")}
               />
             </div>
