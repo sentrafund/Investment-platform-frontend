@@ -68,7 +68,8 @@ function TradingSolutionCard() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-left">
+            className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-left"
+          >
             <div className="flex flex-col items-center text-center gap-3 mb-4">
               <div className="p-3 bg-gray-100 rounded-full">{icon}</div>
               <h3 className="text-xl font-semibold">{title}</h3>
@@ -84,12 +85,7 @@ function TradingSolutionCard() {
       </div>
 
       <div className="flex justify-center">
-        <Button
-          name="Start Investing"
-          onClick={() => {
-            navigate("/dashboard");
-          }}
-        />
+        <Button name="Start Investing" url={"/dashboard"} />
       </div>
     </section>
   );

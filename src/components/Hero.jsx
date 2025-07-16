@@ -27,7 +27,7 @@ function Hero() {
         <div className="absolute top-0 left-0 w-full h-full bg-[#1A2B4C] opacity-50 z-[-1]" />
       </div>
       {/* Hero Section */}
-      <div className="flex flex-col justify-center items-center gap-4 sm:gap-6 lg:gap-8 min-h-[50vh] px-4 sm:px-6 lg:px-8 text-center">
+      <div className="z-20 flex flex-col justify-center items-center gap-4 sm:gap-6 lg:gap-8 min-h-[50vh] px-4 sm:px-6 lg:px-8 text-center">
         {
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
@@ -64,12 +64,7 @@ function Hero() {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="mt-4 sm:mt-6 lg:mt-8"
           >
-            <Button
-              name="Start Investing"
-              onClick={() => {
-                navigate("/dashboard");
-              }}
-            />
+            <Button name="Start Investing" url={"/dashboard"} />
           </motion.div>
         }
       </div>

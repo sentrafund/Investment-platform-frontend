@@ -165,19 +165,20 @@ function InvestmentPlans() {
 
               {/* CTA Button */}
               <div className="w-full mt-auto">
-                <ButtonDemo name="Invest Now" />
+                {/* <ButtonDemo name="Invest Now" /> */}
+                <Button name="Invest Now" url="/dashboard" />
               </div>
             </div>
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center">
+        {/* <div className="text-center">
           <p className="text-gray-600 mb-4 text-sm sm:text-base">
             Need a custom investment plan? We've got you covered.
           </p>
           <ButtonDemo name="Explore More Plans" />
-        </div>
+        </div> */}
       </div>
     </section>
   );
