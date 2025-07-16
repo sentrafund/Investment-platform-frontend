@@ -5,6 +5,7 @@ import BorderButton from "../components/BorderButton";
 import Logo from "../assets/CoinVertical.svg";
 import BgVideo from "../assets/bgvideo.mp4";
 import { useNavigate, NavLink } from "react-router-dom";
+import BrandIcon from "./BrandIcon";
 
 function MyNavlink(pros) {
   return (
@@ -40,7 +41,7 @@ function Header() {
       <div className="relative z-20">
         <header className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           {/* Logo and Title */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* <div className="flex items-center gap-2 sm:gap-3">
             <img
               src={Logo}
               alt="SENTRAFUND logo"
@@ -49,7 +50,8 @@ function Header() {
             <h1 className="text-xl sm:text-2xl lg:text-4xl font-extrabold text-white">
               SENTRAFUND
             </h1>
-          </div>
+          </div> */}
+          <BrandIcon />
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex gap-6 xl:gap-10 text-white font-medium">
@@ -71,14 +73,8 @@ function Header() {
 
           {/* Desktop Buttons */}
           <div className="hidden lg:flex gap-2 lg:gap-2.5 ">
-            <Button
-              name="Register"
-              onClick={() => handleNavigation("/register")}
-            />
-            <BorderButton
-              name="Login"
-              onClick={() => handleNavigation("/login")}
-            />
+            <Button name="Register" url="/register" />
+            <Button name="Login" url={"/login"} type="outline" />
           </div>
 
           {/* Mobile Menu Button */}

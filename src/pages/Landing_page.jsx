@@ -9,6 +9,7 @@ import Howitworks from "../components/Howitworks";
 import Faqs from "../components/Faq";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
+import BrandIcon from "../components/BrandIcon";
 
 function Landing_page() {
   return (

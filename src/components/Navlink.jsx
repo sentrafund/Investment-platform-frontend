@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu, X } from "lucide-react"; 
+import { Menu, X } from "lucide-react";
 import Logo from "../assets/CoinVertical.svg";
+import BrandIcon from "./BrandIcon";
 
 function HeaderComponent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -31,12 +32,13 @@ function HeaderComponent() {
     <header className="bg-[#1E3A8A] text-white">
       <nav className="flex justify-between items-center px-6 md:px-20 py-4">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <img src={Logo} alt="SENTRAFUND Logo" className="w-8 h-8" />
           <h1 className="text-xl sm:text-2xl lg:text-4xl font-extrabold">
             SENTRAFUND
           </h1>
-        </div>
+        </div> */}
+        <BrandIcon />
 
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-6 lg:gap-10 text-lg lg:text-xl font-medium">
