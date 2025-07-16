@@ -4,7 +4,20 @@ import Button from "../components/Button";
 import BorderButton from "../components/BorderButton";
 import Logo from "../assets/CoinVertical.svg";
 import BgVideo from "../assets/bgvideo.mp4";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+
+function MyNavlink(pros) {
+  return (
+    <NavLink
+      to="/#plans"
+      className={({ isActive, isPending }) =>
+        isPending ? "pending" : isActive ? "active" : ""
+      }
+    >
+      Investment Plans
+    </NavLink>
+  );
+}
 
 function Header() {
   const navigate = useNavigate();
@@ -57,7 +70,7 @@ function Header() {
           </ul>
 
           {/* Desktop Buttons */}
-          <div className="hidden sm:hidden gap-2 lg:gap-2.5">
+          <div className="hidden lg:flex gap-2 lg:gap-2.5 ">
             <Button
               name="Register"
               onClick={() => handleNavigation("/register")}
@@ -95,7 +108,7 @@ function Header() {
         {/* Mobile Menu dropdown */}
         <div
           className={`lg:hidden  absolute left-0 w-full  bg-[#15273E] opacity-50 backdrop-blur-sm transition-all duration-300 ${
-            isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+            isMobileMenuOpen ? "opacity-80 visible" : "opacity-0 invisible"
           }`}
         >
           <div className="px-4 py-4 ">
@@ -103,6 +116,7 @@ function Header() {
               <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2 border-b border-white/10">
                 Investment Plans
               </li>
+              <MyNavlink />
               <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2 border-white/10">
                 Contact
               </li>

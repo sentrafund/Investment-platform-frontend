@@ -12,7 +12,7 @@ function Hero() {
   return (
     <div className=" min-h-screen">
       {/* video background */}
-      <div className="absolute top-0 w-full min-h-[80vw]">
+      <div className="absolute top-0 w-full min-h-[80vh]">
         <video
           autoPlay
           loop
@@ -33,7 +33,7 @@ function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl w-full sm:w-11/12 md:w-10/12 lg:w-8/12 text-white font-bold leading-tight"
+            className="min-w-[min(100%,30ch)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl w-full sm:w-11/12 md:w-10/12 lg:w-8/12 text-white font-bold leading-tight"
           >
             Transform Your Investments with{" "}
             {!isMobileMenuOpen && (

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import Logo from '../assets/CoinVertical.svg';
-import Button from './Button';
-import sentrafundcoin from '../assets/sentrafundcoin.png';
-
+import React, { useState } from "react";
+import Logo from "../assets/CoinVertical.svg";
+import Button from "./Button";
+import sentrafundcoin from "../assets/sentrafundcoin.png";
 
 const ButtonDemo = ({ name, onClick }) => (
-  <button 
+  <button
     onClick={onClick}
     className="bg-[#F59E0B] hover:bg-[#D97706] cursor-pointer text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 text-sm sm:text-base shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95"
   >
@@ -15,34 +14,51 @@ const ButtonDemo = ({ name, onClick }) => (
 
 const plans = [
   {
-    title: 'Basic',
-    price: '$200',
-    desc: 'Invest in bonds and stocks',
-    min: '$200',
-    max: '$1,999',
-    duration: '14 days',
+    title: "Basic",
+    price: "$200",
+    desc: "Invest in bonds and stocks",
+    min: "$200",
+    max: "$1,999",
+    duration: "14 days",
     popular: false,
-    features: ['Stock Trading', 'Bond Investment', '24/7 Support', 'Mobile App']
+    features: [
+      "Stock Trading",
+      "Bond Investment",
+      "24/7 Support",
+      "Mobile App",
+    ],
   },
   {
-    title: 'Pro StartUp',
-    price: '$2,000',
-    desc: 'Invest in bonds and stocks',
-    min: '$2,000',
-    max: '$50,000',
-    duration: '30 days',
+    title: "Pro StartUp",
+    price: "$2,000",
+    desc: "Invest in bonds and stocks",
+    min: "$2,000",
+    max: "$50,000",
+    duration: "30 days",
     popular: true,
-    features: ['Stock Trading', 'Bond Investment', 'Advanced Analytics', 'Priority Support', 'Mobile App']
+    features: [
+      "Stock Trading",
+      "Bond Investment",
+      "Advanced Analytics",
+      "Priority Support",
+      "Mobile App",
+    ],
   },
   {
-    title: 'Premium',
-    price: '$50,000',
-    desc: 'Invest in bonds, stocks, binary, crypto, and forex',
-    min: '$50,000',
-    max: '$150,000',
-    duration: '30-60 days',
+    title: "Premium",
+    price: "$50,000",
+    desc: "Invest in bonds, stocks, binary, crypto, and forex",
+    min: "$50,000",
+    max: "$150,000",
+    duration: "30-60 days",
     popular: false,
-    features: ['All Asset Classes', 'Personal Manager', 'VIP Support', 'Advanced Tools', 'API Access']
+    features: [
+      "All Asset Classes",
+      "Personal Manager",
+      "VIP Support",
+      "Advanced Tools",
+      "API Access",
+    ],
   },
 ];
 
@@ -58,19 +74,23 @@ function InvestmentPlans() {
   };
 
   return (
-    <section className="bg-gradient-to-b text-center from-[#F4FFFF] to-[#E6F7FF] py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+    <section
+      id="#plans"
+      className="bg-gradient-to-b text-center from-[#F4FFFF] to-[#E6F7FF] py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
-          
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
               Investment Plans
             </h2>
           </div>
           <p className="text-gray-600 text-center max-w-4xl mx-auto text-sm sm:text-base lg:text-lg leading-relaxed">
-            Invest in the future with our visionary platform, blending stock, binary, crypto, forex, and bonds trading. 
-            Enjoy secure, real-time trading on any device, backed by innovative technology and opportunities in any market condition.
+            Invest in the future with our visionary platform, blending stock,
+            binary, crypto, forex, and bonds trading. Enjoy secure, real-time
+            trading on any device, backed by innovative technology and
+            opportunities in any market condition.
           </p>
         </div>
 
@@ -80,8 +100,8 @@ function InvestmentPlans() {
             <div
               key={index}
               className={`relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 sm:p-8 flex flex-col items-center transform hover:scale-105 ${
-                plan.popular ? 'ring-2 ring-[#F59E0B] ring-opacity-50' : ''
-              } ${selectedPlan === index ? 'scale-105 shadow-2xl' : ''}`}
+                plan.popular ? "ring-2 ring-[#F59E0B] ring-opacity-50" : ""
+              } ${selectedPlan === index ? "scale-105 shadow-2xl" : ""}`}
               onMouseEnter={() => handlePlanHover(index)}
               onMouseLeave={handlePlanLeave}
             >
@@ -97,10 +117,11 @@ function InvestmentPlans() {
               {/* Plan Header */}
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center">
-                 
                   <img src={sentrafundcoin} alt="" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-[#1E3A8A]">{plan.title}</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-[#1E3A8A]">
+                  {plan.title}
+                </h3>
               </div>
 
               {/* Description */}
@@ -110,8 +131,12 @@ function InvestmentPlans() {
 
               {/* Price */}
               <div className="mb-6">
-                <p className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{plan.price}</p>
-                <p className="text-xs sm:text-sm text-gray-500">Starting investment</p>
+                <p className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+                  {plan.price}
+                </p>
+                <p className="text-xs sm:text-sm text-gray-500">
+                  Starting investment
+                </p>
               </div>
 
               {/* Plan Details */}
@@ -119,20 +144,24 @@ function InvestmentPlans() {
                 <div className="grid grid-cols-1 gap-3 text-sm sm:text-base">
                   <div className="flex justify-center gap-2 items-center">
                     <span className="text-gray-600">Minimum:</span>
-                    <span className="font-semibold text-gray-900">{plan.min}</span>
+                    <span className="font-semibold text-gray-900">
+                      {plan.min}
+                    </span>
                   </div>
                   <div className="flex justify-center gap-2 items-center">
                     <span className="text-gray-600">Maximum:</span>
-                    <span className="font-semibold text-gray-900">{plan.max}</span>
+                    <span className="font-semibold text-gray-900">
+                      {plan.max}
+                    </span>
                   </div>
                   <div className="flex justify-center gap-2 items-center">
                     <span className="text-gray-600">Duration:</span>
-                    <span className="font-semibold text-gray-900">{plan.duration}</span>
+                    <span className="font-semibold text-gray-900">
+                      {plan.duration}
+                    </span>
                   </div>
                 </div>
               </div>
-
-            
 
               {/* CTA Button */}
               <div className="w-full mt-auto">
