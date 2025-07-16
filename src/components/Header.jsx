@@ -62,6 +62,9 @@ function Header({ type }) {
             >
               Investment Plans
             </li>
+            <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
+              Contact
+            </li>
           </ul>
 
           {/* Desktop Buttons */}
