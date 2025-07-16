@@ -81,12 +81,8 @@ function Header() {
 
           {/* Desktop Buttons */}
           <div className="hidden lg:flex gap-2 lg:gap-2.5 ">
-            {!authToken ? <Button name="Register" url="/register" /> : ""}
-            {authToken ? (
-              <Button name="Logout" type="outline" />
-            ) : (
-              ""
-            )}
+            <Button name="Register" url="/register" />{" "}
+            <Button name="Login" type="outline" url="/login" />
           </div>
 
           {/* Mobile Menu Button */}
