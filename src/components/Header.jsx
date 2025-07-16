@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Button from "../components/Button";
 import BorderButton from "../components/BorderButton";
 import Logo from "../assets/CoinVertical.svg";
 import BgVideo from "../assets/bgvideo.mp4";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import BrandIcon from "./BrandIcon";
+
+function MyNavlink(pros) {
+  return (
+    <NavLink
+      to="/#plans"
+      className={({ isActive, isPending }) =>
+        isPending ? "pending" : isActive ? "active" : ""
+      }>
+      Investment Plans
+    </NavLink>
+  );
+}
 
 function Header() {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [authToken, setAuthToken] = useState("");
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -18,18 +31,20 @@ function Header() {
     navigate(path);
   };
 
-  return (
-    <div className="relative min-h-screen">
-      {/* Background video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0">
-        <source src={BgVideo} type="video/mp4" />
-      </video>
+  const fetchToken = () => {
+    const token = localStorage.getItem("authToken");
+    console.log("Token fetched from localStorage:", token);
 
+    return token;
+  };
+
+  useEffect(() => {
+    const token = fetchToken();
+    setAuthToken(token);
+  }, []);
+
+  return (
+    <div className="relative w-full">
       {/* Semi-transparent overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-[#1A2B4C] opacity-50 z-10" />
 
@@ -37,7 +52,7 @@ function Header() {
       <div className="relative z-20">
         <header className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           {/* Logo and Title */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* <div className="flex items-center gap-2 sm:gap-3">
             <img
               src={Logo}
               alt="SENTRAFUND logo"
@@ -46,7 +61,8 @@ function Header() {
             <h1 className="text-xl sm:text-2xl lg:text-4xl font-extrabold text-white">
               SENTRAFUND
             </h1>
-          </div>
+          </div> */}
+          <BrandIcon />
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex gap-6 xl:gap-10 text-white font-medium">
@@ -66,15 +82,25 @@ function Header() {
           </ul>
 
           {/* Desktop Buttons */}
-          <div className="hidden sm:hidden gap-2 lg:gap-2.5">
-            <Button
-              name="Register"
-              onClick={() => handleNavigation("/register")}
-            />
-            <BorderButton
-              name="Login"
-              onClick={() => handleNavigation("/login")}
-            />
+          <div className="hidden lg:flex gap-2 lg:gap-2.5 ">
+            {authToken ? (
+              <Button name="Dashboard" url="/dashboard" />
+            ) : (
+              <Button name="Register" url="/register" />
+            )}
+            {authToken ? (
+              <Button
+                name="Logout"
+                type="outline"
+                onClick={() => {
+                  localStorage.removeItem("authToken");
+                  setAuthToken("");
+                  navigate("/login");
+                }}
+              />
+            ) : (
+              <Button name="Login" type="outline" url="/login" />
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,73 +126,63 @@ function Header() {
           </button>
         </header>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu dropdown */}
         <div
-          className={`lg:hidden  absolute left-0 w-full bg-[#1A2B4C] bg-opacity-95 backdrop-blur-sm transition-all duration-300 ${
-            isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          className={`lg:hidden  absolute left-0 w-full  bg-[#15273E] opacity-50 backdrop-blur-sm transition-all duration-300 ${
+            isMobileMenuOpen ? "opacity-80 visible" : "opacity-0 invisible"
           }`}>
           <div className="px-4 py-4 ">
             <ul className=" text-white font-medium">
-              
               <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2 border-b border-white/10">
                 Investment Plans
               </li>
+              <MyNavlink />
               <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2 border-white/10">
                 Contact
               </li>
             </ul>
-
             <div className="flex flex-row justify-between pt-4 border-t border-white/20">
-              <Button
-                name="Register"
-                onClick={() => handleNavigation("/register")}
-              />
-              <Button
-                name="Login"
-                type = "outline"
-                onClick={() => handleNavigation("/login")}
-              />
+              {!authToken ? (
+                <>
+                  <Button
+                    name="Register"
+                    onClick={() => {
+                      handleNavigation("/register");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                  <Button
+                    name="Login"
+                    type="outline"
+                    onClick={() => {
+                      handleNavigation("/login");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  <Button
+                    name="Dashboard"
+                    onClick={() => {
+                      handleNavigation("/dashboard");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                  <Button
+                    name="Logout"
+                    type="outline"
+                    onClick={() => {
+                      localStorage.removeItem("authToken");
+                      setAuthToken("");
+                      setIsMobileMenuOpen(false);
+                      navigate("/login");
+                    }}
+                  />
+                </>
+              )}
             </div>
           </div>
-        </div>
-
-        {/* Hero Section */}
-        <div className="flex flex-col justify-center items-center gap-4 sm:gap-6 lg:gap-8 min-h-[calc(100vh-120px)] px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl w-full sm:w-11/12 md:w-10/12 lg:w-8/12 text-white font-bold leading-tight">
-            Transform Your Investments with{" "}
-            {!isMobileMenuOpen && (
-              <span className="text-[#F59E0B] drop-shadow-lg hidden md:inline">
-                SENTRAFUND
-              </span>
-            )}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-lg sm:text-xl md:text-2xl lg:text-2xl w-full sm:w-11/12 md:w-10/12 lg:w-8/12 text-white/90 leading-relaxed">
-            Join the future of trading with SENTRAFUND. Our advanced platform
-            combines cutting-edge technology with institutional-grade analytics
-            to maximize your investment potential.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="mt-4 sm:mt-6 lg:mt-8">
-            <Button
-              name="Start Investing"
-              onClick={() => {
-                navigate("/dashboard");
-              }}
-            />
-          </motion.div>
         </div>
       </div>
     </div>
