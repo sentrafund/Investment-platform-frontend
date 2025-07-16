@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Button from "../components/Button";
 import BorderButton from "../components/BorderButton";
@@ -13,8 +13,7 @@ function MyNavlink(pros) {
       to="/#plans"
       className={({ isActive, isPending }) =>
         isPending ? "pending" : isActive ? "active" : ""
-      }
-    >
+      }>
       Investment Plans
     </NavLink>
   );
@@ -23,7 +22,7 @@ function MyNavlink(pros) {
 function Header() {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [authToken, setAuthToken] = useState("");
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -31,6 +30,16 @@ function Header() {
   const handleNavigation = (path) => {
     navigate(path);
   };
+
+  const fetchToken = () => {
+    const token = localStorage.getItem("authToken");
+    return token;
+  };
+
+  useEffect(() => {
+    const token = fetchToken();
+    setAuthToken(token);
+  }, []);
 
   return (
     <div className="relative w-full">
@@ -62,8 +71,7 @@ function Header() {
               className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2"
               onClick={() => {
                 navigate("/dashboard");
-              }}
-            >
+              }}>
               Investment Plans
             </li>
             <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
@@ -73,16 +81,19 @@ function Header() {
 
           {/* Desktop Buttons */}
           <div className="hidden lg:flex gap-2 lg:gap-2.5 ">
-            <Button name="Register" url="/register" />
-            <Button name="Login" url={"/login"} type="outline" />
+            {!authToken ? <Button name="Register" url="/register" /> : ""}
+            {authToken ? (
+              <Button name="Logout" type="outline" />
+            ) : (
+              ""
+            )}
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
             className="lg:hidden flex flex-col gap-1 p-2 focus:outline-none focus:ring-2 focus:ring-[#F59E0B] rounded"
-            aria-label="Toggle mobile menu"
-          >
+            aria-label="Toggle mobile menu">
             <span
               className={`w-6 h-0.5 bg-white transition-all duration-300 ${
                 isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
@@ -105,8 +116,7 @@ function Header() {
         <div
           className={`lg:hidden  absolute left-0 w-full  bg-[#15273E] opacity-50 backdrop-blur-sm transition-all duration-300 ${
             isMobileMenuOpen ? "opacity-80 visible" : "opacity-0 invisible"
-          }`}
-        >
+          }`}>
           <div className="px-4 py-4 ">
             <ul className=" text-white font-medium">
               <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2 border-b border-white/10">
