@@ -10,7 +10,7 @@ function Hero() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className=" min-h-screen">
+    <div className=" ">
       {/* video background */}
       <div className="absolute top-0 w-full min-h-[80vh]">
         <video
@@ -27,7 +27,7 @@ function Hero() {
         <div className="absolute top-0 left-0 w-full h-full bg-[#1A2B4C] opacity-50 z-[-1]" />
       </div>
       {/* Hero Section */}
-      <div className="flex flex-col justify-center items-center gap-4 sm:gap-6 lg:gap-8 min-h-[calc(100vh-120px)] px-4 sm:px-6 lg:px-8 text-center">
+      <div className="flex flex-col justify-center items-center gap-4 sm:gap-6 lg:gap-8 min-h-[50vh] px-4 sm:px-6 lg:px-8 text-center">
         {
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
