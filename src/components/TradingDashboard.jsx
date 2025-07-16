@@ -3,6 +3,7 @@ import { Eye, EyeOff, Wallet, CreditCard, TrendingUp } from "lucide-react";
 import wallet from "../assets/wallet.png";
 import deposit from "../assets/deposit.png";
 import fundaccount from "../assets/fundaccount.png";
+import CoinFeedDashboard from "./CoinFeedDashboard";
 const TradingDashboard = () => {
   const [showBalance, setShowBalance] = useState(true);
   const [showDepositAmount, setShowDepositAmount] = useState(true);
@@ -44,8 +45,6 @@ const TradingDashboard = () => {
           <div className="text-3xl font-bold">
             {showBalance ? "$0.00" : "••••••"}
           </div>
-
-        
         </div>
 
         {/* Deposit Card */}
@@ -80,7 +79,10 @@ const TradingDashboard = () => {
           </div>
         </div>
       </div>
-        <div className="text-sm text-[#666666] font-medium">Duration: No trade</div>
+      <div className="text-sm text-[#666666] font-medium">
+        Duration: No trade
+      </div>
+      <CoinFeedDashboard />
     </div>
   );
 };
