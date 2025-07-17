@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import loginbg from "../assets/loginbg.png";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
-import { useNavigate } from "react-router-dom";
 import BrandIcon from "../components/BrandIcon";
 import { NavLink, useNavigate } from "react-router-dom";
 export default function SentrafundLogin() {
