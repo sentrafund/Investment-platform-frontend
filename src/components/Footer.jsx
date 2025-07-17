@@ -60,7 +60,7 @@ function Footer() {
           </div>
 
           {/* Social Links */}
-          <div>
+          {/* <div>
             <h4 className="font-bold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
               <img
@@ -84,7 +84,7 @@ function Footer() {
                 alt="Instagram icon"
               />
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Divider */}

@@ -67,9 +67,6 @@ function Header() {
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex gap-6 xl:gap-10 text-white font-medium">
-            <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
-              Home
-            </li>
             <li
               className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2"
               onClick={() => {
@@ -77,9 +74,6 @@ function Header() {
               }}
             >
               Investment Plans
-            </li>
-            <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
-              Contact
             </li>
           </ul>
 
