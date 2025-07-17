@@ -8,6 +8,7 @@ import { useState } from "react";
 import Withdrawal from "./Withdrawal";
 import HistoryTab from "../components/DashboardHistory";
 import ProfileTab from "../components/DashboardProfile";
+import Header from "../components/Header";
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const renderContent = () => {
@@ -27,7 +28,8 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-[#f5fdff]">
-      <HeaderComponent />
+      {/* <HeaderComponent /> */}
+      <Header />
       <div className="container mx-auto px-4 py-8">
         <DashBoardNavigation
           activeTab={activeTab}
