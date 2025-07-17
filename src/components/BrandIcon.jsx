@@ -8,7 +8,7 @@ function BrandIcon({ type }) {
     return (
       <div className="cursor-pointer z-[2]">
         <NavLink to={"/"}>
-          <img src={blue_logo} alt="sentrafund logo" srcset="" />
+          <img src={blue_logo} alt="sentrafund logo" />
         </NavLink>
       </div>
     );
@@ -16,7 +16,7 @@ function BrandIcon({ type }) {
     return (
       <div className="cursor-pointer z-[2]">
         <NavLink to={"/"}>
-          <img src={sentrafundlogo} alt="sentrafund logo" srcset="" />
+          <img src={sentrafundlogo} alt="sentrafund logo" />
         </NavLink>
       </div>
     );
