@@ -40,8 +40,8 @@ export default function InvestmentPlanCard() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300 w-full max-w-[90%] sm:max-w-md md:max-w-2xl lg:max-w-4xl">
+    <div className=" flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300 w-full  sm:max-w-md md:max-w-2xl lg:max-w-4xl">
         {/* Header Section */}
         <div className="bg-[#1E3A8A] p-6 md:p-8 text-center relative overflow-hidden">
           {/* Background Pattern */}
@@ -85,7 +85,8 @@ export default function InvestmentPlanCard() {
 
               <button
                 onClick={handleCopyAddress}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 cursor-pointer rounded-lg hover:bg-gray-200 transition-all duration-200 group">
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 cursor-pointer rounded-lg hover:bg-gray-200 transition-all duration-200 group"
+              >
                 {copied ? (
                   <CheckCircle className="w-5 h-5 text-yellow-400" />
                 ) : (
@@ -114,14 +115,24 @@ export default function InvestmentPlanCard() {
                   onMouseEnter={() => setHoveredPayment(index)}
                   onMouseLeave={() => setHoveredPayment(null)}
                   className={`rounded-xl flex items-center justify-center p-2 bg-white border hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 cursor-pointer
-                    ${hoveredPayment === index ? "border-none" : "border-none"}`}
+                    ${
+                      hoveredPayment === index ? "border-none" : "border-none"
+                    }`}
                 >
                   <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
-                    {method.name === "PayPal" && <img src={paypal} alt="PayPal" />}
-                    {method.name === "MasterCard" && <img src={mastercard} alt="MasterCard" />}
-                    {method.name === "American Express" && <img src={americanExpress} alt="AmEx" />}
+                    {method.name === "PayPal" && (
+                      <img src={paypal} alt="PayPal" />
+                    )}
+                    {method.name === "MasterCard" && (
+                      <img src={mastercard} alt="MasterCard" />
+                    )}
+                    {method.name === "American Express" && (
+                      <img src={americanExpress} alt="AmEx" />
+                    )}
                     {method.name === "Visa" && <img src={visa} alt="Visa" />}
-                    {method.name === "Bank Transfer" && <img src={bankTransfer} alt="Bank Transfer" />}
+                    {method.name === "Bank Transfer" && (
+                      <img src={bankTransfer} alt="Bank Transfer" />
+                    )}
                   </div>
                 </div>
               ))}
