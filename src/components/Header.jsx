@@ -7,20 +7,7 @@ import BgVideo from "../assets/bgvideo.mp4";
 import { useNavigate, NavLink } from "react-router-dom";
 import BrandIcon from "./BrandIcon";
 
-function MyNavlink(pros) {
-  return (
-    <NavLink
-      to="/#plans"
-      className={({ isActive, isPending }) =>
-        isPending ? "pending" : isActive ? "active" : ""
-      }
-    >
-      Investment Plans
-    </NavLink>
-  );
-}
-
-function Header() {
+function Header({ type }) {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [authToken, setAuthToken] = useState("");
@@ -47,7 +34,7 @@ function Header() {
   return (
     <div className="relative w-full">
       {/* Semi-transparent overlay */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[#1A2B4C] opacity-50 z-10" />
+      <div className="absolute top-0 left-0 w-full h-full bg-[#1A2B4C]  z-10" />
 
       {/* Header + Hero content */}
       <div className="relative z-20">
@@ -67,9 +54,6 @@ function Header() {
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex gap-6 xl:gap-10 text-white font-medium">
-            <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
-              Home
-            </li>
             <li
               className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2"
               onClick={() => {
@@ -77,9 +61,6 @@ function Header() {
               }}
             >
               Investment Plans
-            </li>
-            <li className="hover:text-[#F59E0B] transition-colors duration-200 cursor-pointer py-2">
-              Contact
             </li>
           </ul>
 
