@@ -5,9 +5,10 @@ import { Eye, EyeOff } from "lucide-react";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
 import loginBg from "../assets/loginbg.png";
 import axios from "axios";
+import BrandIcon from "../components/BrandIcon";
 export default function SentrafundRegister() {
   const [formData, setFormData] = useState({
-    fullName: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -63,7 +64,7 @@ export default function SentrafundRegister() {
 
     // Basic validation
     if (
-      !formData.fullName ||
+      !formData.username ||
       !formData.email ||
       !formData.password ||
       !formData.confirmPassword
@@ -80,7 +81,7 @@ export default function SentrafundRegister() {
     }
 
     const payload = {
-      username: formData.fullName,
+      username: formData.username,
       email: formData.email,
       password1: formData.password,
       password2: formData.confirmPassword,
@@ -94,7 +95,7 @@ export default function SentrafundRegister() {
         localStorage.setItem("Token", result.key);
 
         setFormData({
-          fullName: "",
+          username: "",
           email: "",
           password: "",
           confirmPassword: "",
@@ -139,12 +140,13 @@ export default function SentrafundRegister() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-4">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center">
+              {/* <div className="w-8 h-8 rounded-full flex items-center justify-center">
                 <img src={sentrafundcoin} alt="sentrafund coin" />
               </div>
               <span className="ml-2 text-3xl text-[#1E3A8A] font-semibold ">
                 SENTRAFUND
-              </span>
+              </span> */}
+              <BrandIcon type={"auth_logo"} />
             </div>
           </div>
 
@@ -160,17 +162,18 @@ export default function SentrafundRegister() {
             {/* Full Name */}
             <div className="group">
               <label
-                htmlFor="fullName"
-                className="block text-sm font-medium text-gray-700 mb-2">
-                Full Name
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Username
               </label>
               <input
-                id="fullName"
-                name="fullName"
+                id="username"
+                name="username"
                 type="text"
-                value={formData.fullName}
+                value={formData.username}
                 onChange={handleInputChange}
-                placeholder="yourname@email.com"
+                placeholder="username"
                 className="w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all duration-200 hover:border-gray-400"
                 required
               />
@@ -180,7 +183,8 @@ export default function SentrafundRegister() {
             <div className="group">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2">
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Email
               </label>
               <input
@@ -199,7 +203,8 @@ export default function SentrafundRegister() {
             <div className="group">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2">
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -216,7 +221,8 @@ export default function SentrafundRegister() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5 cursor-pointer" />
                   ) : (
@@ -230,7 +236,8 @@ export default function SentrafundRegister() {
             <div className="group">
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700 mb-2">
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Confirm Password
               </label>
               <div className="relative">
@@ -247,7 +254,8 @@ export default function SentrafundRegister() {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                >
                   {showConfirmPassword ? (
                     <EyeOff className="h-5 w-5 cursor-pointer" />
                   ) : (
@@ -262,7 +270,8 @@ export default function SentrafundRegister() {
               <button
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#F59E0B] hover:bg-[#F59E0B] cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F59E0B] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95">
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#F59E0B] hover:bg-[#F59E0B] cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F59E0B] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95"
+              >
                 {isLoading ? (
                   <div className="flex items-center">
                     <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
