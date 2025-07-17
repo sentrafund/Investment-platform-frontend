@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import loginbg from "../assets/loginbg.png";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
+import { useNavigate } from "react-router-dom";
+import BrandIcon from "../components/BrandIcon";
 import { NavLink, useNavigate } from "react-router-dom";
 export default function SentrafundLogin() {
   const [formData, setFormData] = useState({
@@ -99,12 +101,13 @@ export default function SentrafundLogin() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-4">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center">
-                <img src={sentrafundcoin} alt="" />
+              {/* <div className="w-8 h-8 rounded-full flex items-center justify-center"> */}
+              {/* <img src={sentrafundcoin} alt="" />
               </div>
               <span className="ml-2 text-2xl text-[#1E3A8A] font-semibold">
                 SENTRAFUND
-              </span>
+              </span> */}
+              <BrandIcon type={"auth_logo"} />
             </div>
           </div>
 
@@ -134,7 +137,8 @@ export default function SentrafundLogin() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2">
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Email
               </label>
               <input
@@ -153,7 +157,8 @@ export default function SentrafundLogin() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2">
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -170,7 +175,8 @@ export default function SentrafundLogin() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5" />
                   ) : (
@@ -183,21 +189,26 @@ export default function SentrafundLogin() {
             {/* Remember Me */}
             <div className="flex items-center justify-between">
               <div className="flex">
-              <input
-                id="rememberMe"
-                name="rememberMe"
-                type="checkbox"
-                checked={formData.rememberMe}
-                onChange={handleInputChange}
-                className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"/>
-              <label
-                htmlFor="rememberMe"
-                className="ml-2 block text-sm text-gray-700">
-                Remember me
-              </label>
+                <input
+                  id="rememberMe"
+                  name="rememberMe"
+                  type="checkbox"
+                  checked={formData.rememberMe}
+                  onChange={handleInputChange}
+                  className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
+                />
+                <label
+                  htmlFor="rememberMe"
+                  className="ml-2 block text-sm text-gray-700"
+                >
+                  Remember me
+                </label>
               </div>
               <NavLink to={"/"}>
-                <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400"> Forgot password? </p>
+                <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400">
+                  {" "}
+                  Forgot password?{" "}
+                </p>
               </NavLink>
             </div>
 
@@ -206,7 +217,8 @@ export default function SentrafundLogin() {
               <button
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#F59E0B] hover:bg-[#F59E0B] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F59E0B] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer transform hover:scale-105 active:scale-95">
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#F59E0B] hover:bg-[#F59E0B] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F59E0B] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer transform hover:scale-105 active:scale-95"
+              >
                 {isLoading ? (
                   <div className="flex items-center">
                     <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
@@ -220,7 +232,10 @@ export default function SentrafundLogin() {
             <div className="flex p-1">
               <p className="mr-1">Don't have an account?</p>
               <NavLink to={"/register"}>
-                <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400"> Register </p>
+                <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400">
+                  {" "}
+                  Register{" "}
+                </p>
               </NavLink>
             </div>
 

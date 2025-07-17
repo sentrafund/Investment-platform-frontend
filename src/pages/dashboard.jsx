@@ -33,7 +33,7 @@ const Dashboard = () => {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
-        <main className="max-w-6xl mx-auto p-6">{renderContent()}</main>
+        <main className="">{renderContent()}</main>
       </div>
       <Footer />
     </div>
