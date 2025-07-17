@@ -36,7 +36,7 @@ export default function InvestmentForm() {
   };
 
   return (
-    <div className="m-[1em] w-full max-w-[90%] sm:max-w-lg mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8 space-y-6 transform hover:scale-[1.02] transition-all duration-300">
+    <div className="sm: p-[1em] m-[1em] w-full sm:max-w-lg mx-auto bg-white rounded-2xl shadow-xl sm:p-8 space-y-6 transform hover:scale-[1.02] transition-all duration-300">
       {/* Name Field */}
       <div className="space-y-2">
         <label className="block text-sm font-semibold text-gray-700 mb-1">
