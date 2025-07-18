@@ -3,13 +3,16 @@ import { Eye, EyeOff } from "lucide-react";
 import loginbg from "../assets/loginbg.png";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
 import BrandIcon from "../components/BrandIcon";
-import { NavLink, useNavigate } from "react-router-dom";
+import { loginUser } from "../api/auth";
+import { useNavigate, NavLink } from "react-router-dom";
+
 export default function SentrafundLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rememberMe: false,
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -39,35 +42,25 @@ export default function SentrafundLogin() {
     }
 
     try {
-      const response = await fetch(
-        "https://sentrafund.onrender.com/api/auth/login/",
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-            "X-CSRFTOKEN": csrfToken,
-          },
-          body: JSON.stringify({
-            username: formData.email,
-            password: formData.password,
-          }),
-        }
-      );
+      const payload = JSON.stringify({
+        username: formData.email,
+        password: formData.password,
+      });
+      const response = await loginUser(payload);
+
       console.log("Login response:", response);
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Login successful:", data);
+      if (response?.key) {
+        console.log("Login successful:", response);
         // Save token and redirect user
-        localStorage.setItem("authToken", data.key); // Store token (if 'key' is returned)
+        localStorage.setItem("authToken", response.key); // Store token (if 'key' is returned)
 
         setSuccess("Login successful!");
         setTimeout(() => {
           navigate("/dashboard"); // Redirect to dashboard or home page
-        }, 1000); // Redirect after 2 second
+        }, 2000); // Redirect after 2 second
       } else {
-        const errorData = await response.json();
+        const errorData = response;
         console.error("Login failed:", errorData);
         setError("Invalid credentials. Please try again.");
       }

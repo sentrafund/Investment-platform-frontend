@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-
+import { useNavigate, NavLink } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
 import loginBg from "../assets/loginbg.png";
 import axios from "axios";
 import BrandIcon from "../components/BrandIcon";
+import { registerUser } from "../api/auth";
+
 export default function SentrafundRegister() {
   const [formData, setFormData] = useState({
     username: "",
@@ -13,6 +14,7 @@ export default function SentrafundRegister() {
     password: "",
     confirmPassword: "",
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,29 +25,28 @@ export default function SentrafundRegister() {
   const csrfToken =
     "SCUtad4GLspfPzgjBsLe192kkfp39gvOyMRsuPviRLDzvweeTI1xmCFlNiV0bmN0";
 
-  async function registerUser(payload, csrfToken) {
-    try {
-      const response = await axios.post(
-        "https://sentrafund.onrender.com/api/auth/registration/",
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            ...(csrfToken && { "X-CSRFTOKEN": csrfToken }),
-          },
-          withCredentials: true,
-        }
-      );
+  // const local_url = "http://127.0.0.1:8000/api/auth/registration/";
+  // const remote_url = "https://sentrafund.onrender.com/api/auth/registration/";
 
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return error.response?.data;
-      }
-      throw error;
-    }
-  }
+  // async function registerUser(payload, csrfToken) {
+  //   try {
+  //     const response = await axios.post(local_url, payload, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //         ...(csrfToken && { "X-CSRFTOKEN": csrfToken }),
+  //       },
+  //       withCredentials: true,
+  //     });
+
+  //     return response.data;
+  //   } catch (error) {
+  //     if (axios.isAxiosError(error)) {
+  //       return error.response?.data;
+  //     }
+  //     throw error;
+  //   }
+  // }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,6 +55,7 @@ export default function SentrafundRegister() {
       [name]: value,
     }));
   };
+
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
 
@@ -65,6 +67,7 @@ export default function SentrafundRegister() {
     // Basic validation
     if (
       !formData.username ||
+      !formData.fullname ||
       !formData.email ||
       !formData.password ||
       !formData.confirmPassword
@@ -82,6 +85,7 @@ export default function SentrafundRegister() {
 
     const payload = {
       username: formData.username,
+      fullname: formData.fullname,
       email: formData.email,
       password1: formData.password,
       password2: formData.confirmPassword,
@@ -96,6 +100,7 @@ export default function SentrafundRegister() {
 
         setFormData({
           username: "",
+          fullname: "",
           email: "",
           password: "",
           confirmPassword: "",
@@ -109,6 +114,8 @@ export default function SentrafundRegister() {
         // Display appropriate error message from API response
         if (result.username) {
           setError(result.username[0]);
+        } else if (result.fullname) {
+          setError(result.fullname[0]);
         } else if (result.email) {
           setError(result.email[0]);
         } else if (result.password1) {
@@ -174,6 +181,26 @@ export default function SentrafundRegister() {
                 value={formData.username}
                 onChange={handleInputChange}
                 placeholder="username"
+                className="w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all duration-200 hover:border-gray-400"
+                required
+              />
+            </div>
+
+            {/* full name */}
+            <div className="group">
+              <label
+                htmlFor="fullname"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Fullname
+              </label>
+              <input
+                id="fullname"
+                name="fullname"
+                type="text"
+                value={formData.fullname}
+                onChange={handleInputChange}
+                placeholder="firstname surname"
                 className="w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all duration-200 hover:border-gray-400"
                 required
               />
@@ -292,11 +319,14 @@ export default function SentrafundRegister() {
               )}
             </div>
             <div className="flex p-1">
-                  <p className="mr-1">Already have an account?</p>
-                  <NavLink to={"/login"}>
-                    <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400"> Login </p>
-                  </NavLink>
-              </div>
+              <p className="mr-1">Already have an account?</p>
+              <NavLink to={"/login"}>
+                <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400">
+                  {" "}
+                  Login{" "}
+                </p>
+              </NavLink>
+            </div>
             {/* Divider */}
             {/* <div className="relative">
               <div className="absolute inset-0 flex items-center">
