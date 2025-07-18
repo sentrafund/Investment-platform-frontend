@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import loginbg from "../assets/loginbg.png";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
-import { useNavigate } from "react-router-dom";
 import BrandIcon from "../components/BrandIcon";
+import { loginUser } from "../api/auth";
+import { useNavigate, NavLink } from "react-router-dom";
+
 export default function SentrafundLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rememberMe: false,
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -39,35 +42,25 @@ export default function SentrafundLogin() {
     }
 
     try {
-      const response = await fetch(
-        "https://sentrafund.onrender.com/api/auth/login/",
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-            "X-CSRFTOKEN": csrfToken,
-          },
-          body: JSON.stringify({
-            username: formData.email,
-            password: formData.password,
-          }),
-        }
-      );
+      const payload = JSON.stringify({
+        username: formData.email,
+        password: formData.password,
+      });
+      const response = await loginUser(payload);
+
       console.log("Login response:", response);
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Login successful:", data);
+      if (response?.key) {
+        console.log("Login successful:", response);
         // Save token and redirect user
-        localStorage.setItem("authToken", data.key); // Store token (if 'key' is returned)
+        localStorage.setItem("authToken", response.key); // Store token (if 'key' is returned)
 
         setSuccess("Login successful!");
         setTimeout(() => {
           navigate("/dashboard"); // Redirect to dashboard or home page
-        }, 1000); // Redirect after 2 second
+        }, 2000); // Redirect after 2 second
       } else {
-        const errorData = await response.json();
+        const errorData = response;
         console.error("Login failed:", errorData);
         setError("Invalid credentials. Please try again.");
       }
@@ -186,21 +179,29 @@ export default function SentrafundLogin() {
             </div>
 
             {/* Remember Me */}
-            <div className="flex items-center">
-              <input
-                id="rememberMe"
-                name="rememberMe"
-                type="checkbox"
-                checked={formData.rememberMe}
-                onChange={handleInputChange}
-                className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="rememberMe"
-                className="ml-2 block text-sm text-gray-700"
-              >
-                Remember me
-              </label>
+            <div className="flex items-center justify-between">
+              <div className="flex">
+                <input
+                  id="rememberMe"
+                  name="rememberMe"
+                  type="checkbox"
+                  checked={formData.rememberMe}
+                  onChange={handleInputChange}
+                  className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
+                />
+                <label
+                  htmlFor="rememberMe"
+                  className="ml-2 block text-sm text-gray-700"
+                >
+                  Remember me
+                </label>
+              </div>
+              <NavLink to={"/"}>
+                <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400">
+                  {" "}
+                  Forgot password?{" "}
+                </p>
+              </NavLink>
             </div>
 
             {/* Submit Button */}
@@ -219,6 +220,15 @@ export default function SentrafundLogin() {
                   "Sign In"
                 )}
               </button>
+            </div>
+            <div className="flex p-1">
+              <p className="mr-1">Don't have an account?</p>
+              <NavLink to={"/register"}>
+                <p className="mt-0 text-amber-500 hover:underline hover:text-blue-400">
+                  {" "}
+                  Register{" "}
+                </p>
+              </NavLink>
             </div>
 
             {/* Divider */}

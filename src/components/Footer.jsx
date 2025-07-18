@@ -1,4 +1,5 @@
 import React from "react";
+import BrandIcon from "./BrandIcon";
 
 function Footer() {
   return (
@@ -8,11 +9,14 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
           {/* Brand & Description */}
           <div>
-            <img
+            {/* <img
               className="mb-4 cursor-pointer w-32"
               src="/Sentrafundlogo.png"
               alt="Sentrafund logo"
-            />
+            /> */}
+            <div className="w-32 my-2">
+              <BrandIcon />
+            </div>
             <p className="text-sm max-w-xs">
               Your trusted partner in financial markets. Trade stocks, crypto,
               forex and more with confidence and security.
