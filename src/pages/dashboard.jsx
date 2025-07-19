@@ -8,6 +8,7 @@ import { useState } from "react";
 import Withdrawal from "./Withdrawal";
 import HistoryTab from "../components/DashboardHistory";
 import ProfileTab from "../components/DashboardProfile";
+import FloatingWhatsAppButton from "../components/FloatingWhatsappButton";
 import Header from "../components/Header";
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -37,6 +38,7 @@ const Dashboard = () => {
         />
         <main className="">{renderContent()}</main>
       </div>
+      <FloatingWhatsAppButton />
       <Footer />
     </div>
   );

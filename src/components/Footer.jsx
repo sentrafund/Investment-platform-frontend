@@ -35,8 +35,7 @@ function Footer() {
             ].map((service, idx) => (
               <div
                 key={idx}
-                className="mb-2 hover:text-yellow-500 transition duration-300 cursor-pointer text-sm"
-              >
+                className="mb-2 hover:text-yellow-500 transition duration-300 cursor-pointer text-sm">
                 {service}
               </div>
             ))}
@@ -59,7 +58,7 @@ function Footer() {
                 alt="WhatsApp icon"
                 className="w-5 h-5"
               />
-              <span className="text-sm">+234----------</span>
+              <span className="text-sm">+16605283910</span>
             </div>
           </div>
 
@@ -109,8 +108,7 @@ function Footer() {
               (item, idx) => (
                 <span
                   key={idx}
-                  className="hover:text-yellow-500 cursor-pointer transition"
-                >
+                  className="hover:text-yellow-500 cursor-pointer transition">
                   {item}
                 </span>
               )

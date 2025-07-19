@@ -10,6 +10,7 @@ import Faqs from "../components/Faq";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import BrandIcon from "../components/BrandIcon";
+import FloatingWhatsAppButton from "../components/FloatingWhatsappButton";
 
 function Landing_page() {
   return (
@@ -23,6 +24,10 @@ function Landing_page() {
       <Howitworks />
       <Faqs />
       <Footer />
+      <FloatingWhatsAppButton
+        phoneNumber={"16605283910"}
+        message={"Hi there! I'm interested in your services."}
+      />
     </div>
   );
 }
