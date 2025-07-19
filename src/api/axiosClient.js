@@ -4,7 +4,7 @@ import axios from "axios";
 // const BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000/api";
 
 const local_url = "http://127.0.0.1:8000/api";
-const remote_url = "https://sentrafund.onrender.com/api";
+const remote_url = "http://54.90.254.228:8000/api";
 
 const BASE_URL = remote_url;
 const CSRF_TOKEN =
