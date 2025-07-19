@@ -6,7 +6,7 @@ import axios from "axios";
 const local_url = "http://127.0.0.1:8000/api";
 const remote_url = "https://sentrafund.onrender.com/api";
 
-const BASE_URL = remote_url;
+const BASE_URL = local_url;
 const CSRF_TOKEN =
   "SCUtad4GLspfPzgjBsLe192kkfp39gvOyMRsuPviRLDzvweeTI1xmCFlNiV0bmN0";
 
@@ -18,6 +18,21 @@ const axiosClient = axios.create({
     "X-CSRFTOKEN": CSRF_TOKEN,
   },
   withCredentials: true, // for cookies or CSRF
+});
+
+// Add interceptor to inject token + CSRF
+axiosClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("authToken"); // or sessionStorage.getItem
+  if (token) {
+    config.headers["Authorization"] = `Token ${token}`; // or `Bearer ${token}` if JWT
+  }
+
+  // const csrfToken = Cookies.get("csrftoken");
+  if (CSRF_TOKEN) {
+    config.headers["X-CSRFTOKEN"] = CSRF_TOKEN;
+  }
+
+  return config;
 });
 
 // Optional: attach interceptors here if needed
