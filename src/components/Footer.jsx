@@ -44,22 +44,29 @@ function Footer() {
           {/* Contact */}
           <div>
             <h4 className="font-bold mb-4">Contact Us</h4>
-            <div className="flex items-center gap-2 mb-4 hover:text-yellow-500 cursor-pointer transition">
+            <a
+              href="mailto:help@sentrafund.com"
+              className="flex items-center gap-2 mb-4 hover:text-yellow-500 cursor-pointer transition">
               <img
                 src="/material-symbols_mail-outline-rounded.svg"
                 alt="Email icon"
                 className="w-5 h-5"
               />
-              <span className="text-sm">support@sentrafund.com</span>
-            </div>
-            <div className="flex items-center gap-2 hover:text-yellow-500 cursor-pointer transition">
+              <span className="text-sm">help@sentrafund.com</span>
+            </a>
+
+            <a
+              href="https://wa.me/16605283910"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-yellow-500 cursor-pointer transition">
               <img
                 src="/ri_whatsapp-line.svg"
                 alt="WhatsApp icon"
                 className="w-5 h-5"
               />
-              <span className="text-sm">+16605283910</span>
-            </div>
+              <span className="text-sm">+1 (660) 528-3910</span>
+            </a>
           </div>
 
           {/* Social Links */}
