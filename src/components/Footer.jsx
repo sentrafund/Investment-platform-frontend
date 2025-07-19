@@ -35,7 +35,10 @@ function Footer() {
             ].map((service, idx) => (
               <div
                 key={idx}
-                className="mb-2 hover:text-yellow-500 transition duration-300 cursor-pointer text-sm">
+                className="mb-2 hover:text-yellow-500 transition duration-300 cursor-pointer text-sm"
+              >
+                className="mb-2 hover:text-yellow-500 transition duration-300
+                cursor-pointer text-sm">
                 {service}
               </div>
             ))}
@@ -46,7 +49,8 @@ function Footer() {
             <h4 className="font-bold mb-4">Contact Us</h4>
             <a
               href="mailto:help@sentrafund.com"
-              className="flex items-center gap-2 mb-4 hover:text-yellow-500 cursor-pointer transition">
+              className="flex items-center gap-2 mb-4 hover:text-yellow-500 cursor-pointer transition"
+            >
               <img
                 src="/material-symbols_mail-outline-rounded.svg"
                 alt="Email icon"
@@ -59,7 +63,8 @@ function Footer() {
               href="https://wa.me/16605283910"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-yellow-500 cursor-pointer transition">
+              className="flex items-center gap-2 hover:text-yellow-500 cursor-pointer transition"
+            >
               <img
                 src="/ri_whatsapp-line.svg"
                 alt="WhatsApp icon"
@@ -115,7 +120,8 @@ function Footer() {
               (item, idx) => (
                 <span
                   key={idx}
-                  className="hover:text-yellow-500 cursor-pointer transition">
+                  className="hover:text-yellow-500 cursor-pointer transition"
+                >
                   {item}
                 </span>
               )
