@@ -18,8 +18,6 @@ export default function SentrafundLogin() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
-  const csrfToken =
-    "SCUtad4GLspfPzgjBsLe192kkfp39gvOyMRsuPviRLDzvweeTI1xmCFlNiV0bmN0";
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -93,12 +91,6 @@ export default function SentrafundLogin() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-4">
-              {/* <div className="w-8 h-8 rounded-full flex items-center justify-center"> */}
-              {/* <img src={sentrafundcoin} alt="" />
-              </div>
-              <span className="ml-2 text-2xl text-[#1E3A8A] font-semibold">
-                SENTRAFUND
-              </span> */}
               <BrandIcon type={"auth_logo"} />
             </div>
           </div>
@@ -129,7 +121,8 @@ export default function SentrafundLogin() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2">
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Email
               </label>
               <input
@@ -148,7 +141,8 @@ export default function SentrafundLogin() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2">
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -165,7 +159,8 @@ export default function SentrafundLogin() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5" />
                   ) : (
@@ -188,11 +183,12 @@ export default function SentrafundLogin() {
                 />
                 <label
                   htmlFor="rememberMe"
-                  className="ml-2 font-semibold block text-sm text-gray-700">
+                  className="ml-2 font-semibold block text-sm text-gray-700"
+                >
                   Remember me
                 </label>
               </div>
-              <NavLink to={"/"}>
+              <NavLink to={"/password-reset"}>
                 <p className=" text-amber-500 font-semibold hover:underline">
                   {" "}
                   Forgot password?{" "}
@@ -205,7 +201,8 @@ export default function SentrafundLogin() {
               <button
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#F59E0B] hover:bg-[#F59E0B] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F59E0B] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer transform hover:scale-105 active:scale-95">
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#F59E0B] hover:bg-[#F59E0B] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F59E0B] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer transform hover:scale-105 active:scale-95"
+              >
                 {isLoading ? (
                   <div className="flex items-center">
                     <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>

@@ -11,6 +11,7 @@ import Dashboard from "./pages/dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminDashboard from "./pages/AdminDashboard";
 import { AdminProvider } from "./context/AdminContext";
+import PasswordReset from "./pages/PasswordReset";
 
 function App() {
   return (
@@ -23,6 +24,11 @@ function App() {
             <Route path="/register" element={<SentrafundRegister />} />
             <Route path="/withdrawal" element={<Withdrawal />} />
             <Route path="/admin" element={<AdminDashboard />}></Route>
+            <Route path="/password-reset" element={<PasswordReset />} />
+            <Route
+              path="/password-reset-confirm/:uuid/:token"
+              element={<PasswordReset />}
+            />
             <Route
               path="/dashboard"
               element={
