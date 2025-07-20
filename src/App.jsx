@@ -15,25 +15,26 @@ import { AdminProvider } from "./context/AdminContext";
 function App() {
   return (
     <>
-        <AdminProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Landing_page />} />
-          <Route path="/login" element={<SentrafundLogin />} />
-          <Route path="/register" element={<SentrafundRegister />} />
-          <Route path="/withdrawal" element={<Withdrawal />} />
-          <Route path="/admin" element={<AdminDashboard />}></Route>
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Router>
-          </AdminProvider>
+      <AdminProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Landing_page />} />
+            <Route path="/login" element={<SentrafundLogin />} />
+            <Route path="/register" element={<SentrafundRegister />} />
+            <Route path="/withdrawal" element={<Withdrawal />} />
+            <Route path="/admin" element={<AdminDashboard />}></Route>
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  {/* <Dashboard /> */}
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </AdminProvider>
     </>
   );
 }
