@@ -9,16 +9,20 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Withdrawal from "./pages/Withdrawal";
 import Dashboard from "./pages/dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminDashboard from "./pages/AdminDashboard";
+import { AdminProvider } from "./context/AdminContext";
 
 function App() {
   return (
     <>
+        <AdminProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Landing_page />} />
           <Route path="/login" element={<SentrafundLogin />} />
           <Route path="/register" element={<SentrafundRegister />} />
           <Route path="/withdrawal" element={<Withdrawal />} />
+          <Route path="/admin" element={<AdminDashboard />}></Route>
           <Route
             path="/dashboard"
             element={
@@ -29,6 +33,7 @@ function App() {
           />
         </Routes>
       </Router>
+          </AdminProvider>
     </>
   );
 }

@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const BASE_URL = "http://54.90.254.228:8000/api";
-
+// const BASE_URL = "http://54.90.254.228:8000/api";
+const BASE_URL = "https://sentrafund.onrender.com/api"
 const axiosClient = axios.create({
   baseURL: BASE_URL,
   headers: {
