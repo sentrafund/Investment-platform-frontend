@@ -37,8 +37,6 @@ function Footer() {
                 key={idx}
                 className="mb-2 hover:text-yellow-500 transition duration-300 cursor-pointer text-sm"
               >
-                className="mb-2 hover:text-yellow-500 transition duration-300
-                cursor-pointer text-sm">
                 {service}
               </div>
             ))}

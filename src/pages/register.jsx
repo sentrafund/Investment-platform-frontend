@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-
-import { useNavigate, NavLink } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import sentrafundcoin from "../assets/sentrafundcoin.png";
 import loginBg from "../assets/loginbg.png";
