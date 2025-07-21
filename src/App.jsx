@@ -28,8 +28,8 @@ function App() {
             <Route path="/admin" element={<AdminDashboard />}></Route>
             <Route path="/password-reset" element={<PasswordReset />} />
             <Route
-              path="/password-reset-confirm/:uuid/:token"
-              element={<PasswordReset />}
+              path="/password-reset/confirm/:uid/:token"
+              element={<PasswordResetConfirm />}
             />
             <Route
               path="/dashboard"
