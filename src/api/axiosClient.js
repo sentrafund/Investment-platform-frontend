@@ -15,6 +15,14 @@ const axiosClient = axios.create({
   withCredentials: true,
 });
 
+export const axiosPublic = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+  withCredentials: false, // prevent sending cookies or CSRF headers
+});
 axiosClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("authToken");
   if (token) {
@@ -28,5 +36,3 @@ axiosClient.interceptors.request.use((config) => {
 
   return config;
 });
-
-export default axiosClient;

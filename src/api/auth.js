@@ -1,4 +1,4 @@
-import axiosClient from "./axiosClient";
+import { axiosClient, axiosPublic } from "./axiosClient";
 
 export const registerUser = async (payload) => {
   try {
@@ -32,7 +32,7 @@ export const getUserProfile = async () => {
 export const password_reset = async (payload) => {
   try {
     const response = await axiosClient.post("/auth/password/reset/", payload);
-    return response.data;
+    return response;
   } catch (error) {
     if (error.response) return error.data;
     throw error;
@@ -41,11 +41,11 @@ export const password_reset = async (payload) => {
 
 export const password_reset_confirm = async (payload) => {
   try {
-    const response = await axiosClient.post(
+    const response = await axiosPublic.post(
       "/auth/password/reset/confirm/",
       payload
     );
-    return response.data;
+    return response;
   } catch (error) {
     if (error.response) return error.data;
     throw error;

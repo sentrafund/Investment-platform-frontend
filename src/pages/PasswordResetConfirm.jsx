@@ -3,7 +3,7 @@ import { Eye, EyeOff } from "lucide-react";
 import loginbg from "../assets/loginbg.png";
 import BrandIcon from "../components/BrandIcon";
 import { password_reset_confirm } from "../api/auth";
-import { useNavigate, NavLink, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function PasswordResetConfirm() {
   const [formData, setFormData] = useState({
@@ -16,8 +16,7 @@ export default function PasswordResetConfirm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const { uuid, token } = useParams();
-  console.log(`uuid=${uuid} \ntoken=${token}`);
+  const { uid, token } = useParams();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -32,34 +31,44 @@ export default function PasswordResetConfirm() {
     if (e) e.preventDefault();
     setIsLoading(true);
     setError("");
+    setSuccess("");
 
-    // Basic validation
-    if (!formData.password1 || !formData.password2) {
+    const { password1, password2 } = formData;
+
+    if (!password1 || !password2) {
       setError("Please enter both passwords");
       setIsLoading(false);
       return;
     }
 
-    try {
-      const payload = JSON.stringify({
-        password1: formData.password1,
-        password2: formData.password2,
-      });
-      const response = await password_reset_confirm(payload);
+    const payload = {
+      new_password1: password1,
+      new_password2: password2,
+      uid: uid,
+      token: token,
+    };
 
-      console.log("Login response:", response);
+    console.log("Payload:", {
+      new_password1: password1,
+      new_password2: password2,
+      uid,
+      token,
+    });
+
+    try {
+      const response = await password_reset_confirm(payload);
+      const data = await response.json;
 
       if (response.status === 200) {
-        console.log("Password reset successful:", response);
-
         setSuccess("Password reset successful!");
         setTimeout(() => {
-          navigate("/login"); // Redirect to dashboard or home page
-        }, 2000); // Redirect after 2 second
+          navigate("/login");
+        }, 2000);
       } else {
-        const errorData = response;
-        console.error("Password reset failed:", errorData);
-        setError("Password reset failed. Please try again.");
+        console.error("Password reset failed:", data);
+        const firstError =
+          Object.values(data)?.[0]?.[0] || "Password reset failed.";
+        setError(firstError);
       }
     } catch (error) {
       console.error("Network error:", error);
@@ -76,7 +85,7 @@ export default function PasswordResetConfirm() {
         <img src={loginbg} alt="loginbg" className="object-cover" />
       </div>
 
-      {/* Right Side - Login Form */}
+      {/* Right Side - Form */}
       <div className="w-full lg:w-1/2 bg-[#F4FFFF] flex flex-col justify-center px-4 sm:px-6 lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm">
           {/* Logo */}
@@ -93,13 +102,14 @@ export default function PasswordResetConfirm() {
             </h2>
           </div>
 
-          {/* Display Error Message */}
+          {/* Error Message */}
           {error && (
             <div className="mb-4 text-red-600 text-center text-sm font-medium">
               {error}
             </div>
           )}
-          {/* Display Success Message */}
+
+          {/* Success Message */}
           {success && (
             <div className="mb-4 text-green-600 text-center text-sm font-medium">
               {success}
@@ -108,18 +118,18 @@ export default function PasswordResetConfirm() {
 
           {/* Form */}
           <div className="space-y-6">
-            {/* Password1 */}
+            {/* New Password */}
             <div>
               <label
-                htmlFor="password"
+                htmlFor="password1"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Password
+                New Password
               </label>
               <div className="relative">
                 <input
-                  id="password"
-                  name="password"
+                  id="password1"
+                  name="password1"
                   type={showPassword ? "text" : "password"}
                   value={formData.password1}
                   onChange={handleInputChange}
@@ -141,18 +151,18 @@ export default function PasswordResetConfirm() {
               </div>
             </div>
 
-            {/* Password2 */}
+            {/* Confirm Password */}
             <div>
               <label
-                htmlFor="password"
+                htmlFor="password2"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Password
+                Confirm Password
               </label>
               <div className="relative">
                 <input
-                  id="password"
-                  name="password"
+                  id="password2"
+                  name="password2"
                   type={showPassword ? "text" : "password"}
                   value={formData.password2}
                   onChange={handleInputChange}

@@ -42,14 +42,14 @@ export default function PasswordReset() {
       });
       const response = await password_reset(payload);
 
-      console.log("Login response:", response);
+      console.log("response status=:", response);
 
       if (response.status === 200) {
         console.log("reset email sent:", response);
         setSuccess("Please check your mail for password reset e-mail");
-        setTimeout(() => {
-          navigate("/password-reset-confirm"); // Redirect to dashboard or home page
-        }, 5000); // Redirect after 2 second
+        // setTimeout(() => {
+        //   navigate("/password-reset-confirm"); // Redirect to dashboard or home page
+        // }, 5000); // Redirect after 2 second
       } else {
         const errorData = response;
         console.error("password reset failed:", errorData);

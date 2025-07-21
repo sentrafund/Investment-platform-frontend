@@ -12,7 +12,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminDashboard from "./pages/AdminDashboard";
 import { AdminProvider } from "./context/AdminContext";
 import PasswordReset from "./pages/PasswordReset";
+import PasswordResetConfirm from "./pages/PasswordResetConfirm";
 
+// let link = /password-reset/confirm/l/ctat4z-df1e120a3a5bc78cd768d0e7812fdd7b
 function App() {
   return (
     <>
