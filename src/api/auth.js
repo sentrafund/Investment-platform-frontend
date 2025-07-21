@@ -5,7 +5,8 @@ export const registerUser = async (payload) => {
     const response = await axiosClient.post("/auth/registration/", payload);
     return response.data;
   } catch (error) {
-    return error.response?.data;
+    if (error.response) return error.response.data;
+    throw error;
   }
 };
 
@@ -34,7 +35,7 @@ export const password_reset = async (payload) => {
     const response = await axiosClient.post("/auth/password/reset/", payload);
     return response;
   } catch (error) {
-    if (error.response) return error.data;
+    if (error.response) return error.response.data;
     throw error;
   }
 };
@@ -47,7 +48,7 @@ export const password_reset_confirm = async (payload) => {
     );
     return response;
   } catch (error) {
-    if (error.response) return error.data;
+    if (error.response) return error.response.data;
     throw error;
   }
 };

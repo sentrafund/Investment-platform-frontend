@@ -57,7 +57,7 @@ export default function PasswordResetConfirm() {
 
     try {
       const response = await password_reset_confirm(payload);
-      const data = await response.json;
+      const data = await response;
 
       if (response.status === 200) {
         setSuccess("Password reset successful!");
