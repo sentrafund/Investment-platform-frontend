@@ -17,8 +17,8 @@ const mockUsers = [
       {
         id: "inv1",
         userId: "1",
-        planName: "Growth Portfolio",
-        amount: 5000,
+        planName: "Basic",
+        amount: 200,
         expectedReturn: 6500,
         status: "pending",
         startDate: "2024-12-15",
@@ -29,7 +29,7 @@ const mockUsers = [
       {
         id: "inv2",
         userId: "1",
-        planName: "Conservative Bonds",
+        planName: "premium",
         amount: 10000,
         expectedReturn: 11000,
         status: "approved",
