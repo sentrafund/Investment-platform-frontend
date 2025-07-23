@@ -122,12 +122,6 @@ export default function SentrafundRegister() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-4">
-              {/* <div className="w-8 h-8 rounded-full flex items-center justify-center">
-                <img src={sentrafundcoin} alt="sentrafund coin" />
-              </div>
-              <span className="ml-2 text-3xl text-[#1E3A8A] font-semibold ">
-                SENTRAFUND
-              </span> */}
               <BrandIcon type={"auth_logo"} />
             </div>
           </div>
