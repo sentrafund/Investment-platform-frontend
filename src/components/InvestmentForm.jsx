@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { ChevronDown, User, Mail, TrendingUp, CreditCard } from "lucide-react";
+import { ChevronDown, Coins, Mail, TrendingUp, CreditCard } from "lucide-react";
+import { make_deposit } from "../api/auth";
+import { useNavigate } from "react-router-dom";
+
 export default function InvestmentForm() {
   const [formData, setFormData] = useState({
-    plan: "basic",
-    paymentMethod: "bank_transfer",
+    reference_plan: "basic",
+    amount: 0,
   });
 
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -19,11 +26,42 @@ export default function InvestmentForm() {
   ];
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    alert("Package purchased successfully!");
+
+    if (!formData["amount"]) {
+      setError("Please Enter Amount");
+      setIsLoading(false);
+      return;
+    }
+
+    const payload = {
+      reference_plan: formData["reference_plan"],
+      transaction_type: "deposit",
+      amount: formData["amount"],
+    };
+    try {
+      const response = await make_deposit(payload);
+
+      if (response.status === 201) {
+        setSuccess("Payment request sent successful!");
+        setIsLoading(false);
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 2000);
+      } else {
+        console.error("Payment request failed:", response);
+        const firstError =
+          Object.values(response)?.[0]?.[0] || "Payment request failed";
+        setError(firstError);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const handleInputChange = (field, value) => {
@@ -35,55 +73,43 @@ export default function InvestmentForm() {
 
   return (
     <div className="sm: p-[1em] m-[1em] w-full sm:max-w-lg mx-auto bg-white rounded-2xl shadow-xl sm:p-8 space-y-6 transform hover:scale-[1.02] transition-all duration-300">
-      {/* Name Field
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 text-red-600 text-center text-sm font-medium">
+          {error}
+        </div>
+      )}
+
+      {/* Success Message */}
+      {success && (
+        <div className="mb-4 text-green-600 text-center text-sm font-medium">
+          {success}
+        </div>
+      )}
+      {/* Amount Field */}
       <div className="space-y-2">
         <label className="block text-sm font-semibold text-gray-700 mb-1">
-          Name
+          Amount
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <User
+            <Coins
               className={`w-5 h-5 transition-colors duration-200 ${
-                focusedField === "name" ? "text-amber-500" : "text-gray-400"
+                focusedField === "amount" ? "text-amber-500" : "text-gray-400"
               }`}
             />
           </div>
           <input
             type="text"
-            value={formData.name}
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            onFocus={() => setFocusedField("name")}
+            value={formData.amount}
+            onChange={(e) => handleInputChange("amount", e.target.value)}
+            onFocus={() => setFocusedField("amount")}
             onBlur={() => setFocusedField(null)}
-            placeholder="Jane Doe"
+            placeholder="120.00"
             className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-sm sm:text-base"
           />
         </div>
-      </div> */}
-
-      {/* Email Field
-      <div className="space-y-2">
-        <label className="block text-sm font-semibold text-gray-700 mb-1">
-          Email
-        </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Mail
-              className={`w-5 h-5 transition-colors duration-200 ${
-                focusedField === "email" ? "text-amber-500" : "text-gray-400"
-              }`}
-            />
-          </div>
-          <input
-            type="email"
-            value={formData.email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
-            onFocus={() => setFocusedField("email")}
-            onBlur={() => setFocusedField(null)}
-            placeholder="janedoe@gmail.com"
-            className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-sm sm:text-base"
-          />
-        </div>
-      </div> */}
+      </div>
 
       {/* Investment Plan Dropdown */}
       <div className="space-y-2">
@@ -92,11 +118,14 @@ export default function InvestmentForm() {
         </label>
         <div className="relative">
           <select
-            value={formData.plan}
-            onChange={(e) => handleInputChange("plan", e.target.value)}
-            onFocus={() => setFocusedField("plan")}
+            value={formData.reference_plan}
+            onChange={(e) =>
+              handleInputChange("reference_plan", e.target.value)
+            }
+            onFocus={() => setFocusedField("reference_plan")}
             onBlur={() => setFocusedField(null)}
-            className="w-full appearance-none px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white cursor-pointer text-sm sm:text-base">
+            className="w-full appearance-none px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white cursor-pointer text-sm sm:text-base"
+          >
             {investmentPlans.map((plan) => (
               <option key={plan} value={plan}>
                 {plan}
@@ -116,7 +145,7 @@ export default function InvestmentForm() {
       </div>
 
       {/* Payment Method Dropdown */}
-      <div className="space-y-2">
+      {/* <div className="space-y-2">
         <label className="block text-sm font-semibold text-gray-700 mb-1">
           Payment Method
         </label>
@@ -143,15 +172,16 @@ export default function InvestmentForm() {
             />
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Submit Button */}
       <button
         type="button"
         onClick={handleSubmit}
-        disabled={isSubmitting}
-        className="w-full bg-[#F59E0B] text-white font-semibold py-3 sm:py-4 px-6 rounded-xl hover:from-amber-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base">
-        {isSubmitting ? (
+        disabled={isLoading}
+        className="w-full bg-[#F59E0B] text-white font-semibold py-3 sm:py-4 px-6 rounded-xl hover:from-amber-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
+      >
+        {isLoading ? (
           <div className="flex items-center justify-center space-x-2">
             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
             <span>Processing...</span>

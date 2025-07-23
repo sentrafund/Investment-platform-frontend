@@ -52,3 +52,26 @@ export const password_reset_confirm = async (payload) => {
     throw error;
   }
 };
+
+export const make_deposit = async (payload) => {
+  try {
+    const response = await axiosClient.post(
+      "/investment/transaction/",
+      payload
+    );
+    return response;
+  } catch (error) {
+    if (error.response) return error.response.data;
+    throw error;
+  }
+};
+
+export const get_all_transactions = async () => {
+  try {
+    const response = await axiosClient.get("/investment/transaction/");
+    return response;
+  } catch (error) {
+    if (error.response) return error.response.data;
+    throw error;
+  }
+};
