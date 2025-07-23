@@ -13,7 +13,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import { AdminProvider } from "./context/AdminContext";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordResetConfirm from "./pages/PasswordResetConfirm";
-
+import PublicRoute from "./routes/PublicRoute";
 // let link = /password-reset/confirm/l/ctat4z-df1e120a3a5bc78cd768d0e7812fdd7b
 function App() {
   return (
@@ -22,10 +22,30 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Landing_page />} />
-            <Route path="/login" element={<SentrafundLogin />} />
-            <Route path="/register" element={<SentrafundRegister />} />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <SentrafundLogin />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute>
+                  <SentrafundRegister />
+                </PublicRoute>
+              }
+            />
             <Route path="/withdrawal" element={<Withdrawal />} />
-            <Route path="/admin" element={<AdminDashboard />}></Route>
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }></Route>
             <Route path="/password-reset" element={<PasswordReset />} />
             <Route
               path="/password-reset/confirm/:uid/:token"
@@ -35,8 +55,8 @@ function App() {
               path="/dashboard"
               element={
                 <ProtectedRoute>
-                  {/* <Dashboard /> */}
-                  <AdminDashboard />
+                  <Dashboard />
+                  {/* <AdminDashboard /> */}
                 </ProtectedRoute>
               }
             />

@@ -1,11 +1,16 @@
 import React from "react";
-import {  LogOut, Bell } from "lucide-react";
+import { LogOut, Bell } from "lucide-react";
 import { useAdmin } from "../context/AdminContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { state, dispatch } = useAdmin();
-
+  const navigate = useNavigate();
+  // Handle logout
   const handleLogout = () => {
+    console.log(localStorage.getItem("authToken"));
+
+    localStorage.removeItem("authToken");
     dispatch({ type: "SET_AUTHENTICATED", payload: false });
     dispatch({
       type: "ADD_NOTIFICATION",
@@ -15,6 +20,8 @@ const Header = () => {
         message: "Successfully logged out",
       },
     });
+
+    navigate("/login");
   };
 
   return (
