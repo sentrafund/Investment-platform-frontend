@@ -4,7 +4,7 @@ import wallet from "../assets/wallet.png";
 import deposit from "../assets/deposit.png";
 import fundaccount from "../assets/fundaccount.png";
 import CoinFeedDashboard from "./CoinFeedDashboard";
-const TradingDashboard = () => {
+const TradingDashboard = ({ setActiveTab }) => {
   const [showBalance, setShowBalance] = useState(true);
   const [showDepositAmount, setShowDepositAmount] = useState(true);
 
@@ -72,8 +72,14 @@ const TradingDashboard = () => {
             <div className="text-3xl font-bold">
               {showDepositAmount ? "$0.00" : "••••••"}
             </div>
-            <div className=" rounded-sm flex items-center gap-2 justify-center">
-              <img src={fundaccount} alt="fund account" />
+            <div
+              className=" rounded-sm flex items-center gap-2 justify-center"
+              onClick={() => setActiveTab("Deposit")}>
+              <img
+                src={fundaccount}
+                alt="fund account"
+                className="fund-account cursor-pointer"
+              />
               <span className="text-sm">Fund your trading account</span>
             </div>
           </div>

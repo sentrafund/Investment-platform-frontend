@@ -23,7 +23,7 @@ const Dashboard = () => {
       case "Profile":
         return <ProfileTab />;
       default:
-        return <TradingDashboard />;
+        return <TradingDashboard setActiveTab={setActiveTab} />;
     }
   };
 
