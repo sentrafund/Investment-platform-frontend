@@ -14,7 +14,6 @@ export default function InvestmentForm() {
   const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const investmentPlans = ["basic", "pro_startup", "premium"];
 
@@ -36,7 +35,6 @@ export default function InvestmentForm() {
     setError("");
     setSuccess("");
     e.preventDefault();
-    setIsSubmitting(true);
 
     if (!formData["amount"]) {
       setError("Please Enter Amount");

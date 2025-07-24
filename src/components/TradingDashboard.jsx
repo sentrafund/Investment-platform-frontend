@@ -4,12 +4,18 @@ import wallet from "../assets/wallet.png";
 import deposit from "../assets/deposit.png";
 import fundaccount from "../assets/fundaccount.png";
 import CoinFeedDashboard from "./CoinFeedDashboard";
-import { get_all_transactions } from "../api/auth";
+import {
+  get_all_balance,
+  get_all_transactions,
+  get_my_balance,
+} from "../api/auth";
 
 const TradingDashboard = ({ setActiveTab }) => {
   const [depositBalace, setDepositBalance] = useState(0);
   const [showBalance, setShowBalance] = useState(true);
   const [showDepositAmount, setShowDepositAmount] = useState(true);
+  const [walletBalance, setWallet] = useState(0);
+  const [error, setError] = useState("");
 
   const toggleBalanceVisibility = () => {
     setShowBalance(!showBalance);
@@ -18,31 +24,35 @@ const TradingDashboard = ({ setActiveTab }) => {
   const toggleDepositVisibility = () => {
     setShowDepositAmount(!showDepositAmount);
   };
-
   useEffect(() => {
     async function fetchUser() {
       try {
-        const response = await get_all_transactions();
-        const data = response.data;
+        // Fetch wallet and transactions concurrently
+        const [walletRes, transactionsRes] = await Promise.all([
+          get_all_balance(),
+          get_all_transactions(),
+        ]);
 
-        // Sort by created_at DESC (newest first)
-        const sorted = [...data].sort(
-          (a, b) => new Date(b.created_at) - new Date(a.created_at)
-        );
+        // Set wallet data
+        setWallet(walletRes.data[0]?.["balance"] ?? 0);
+        console.log("Wallet:", walletRes.data[0]?.["balance"] ?? 0);
 
-        // ✅ Sum all approved deposits
-        const totalApproved = sorted
+        const transactions = transactionsRes?.data ?? 0;
+
+        // Compute total approved/completed deposits
+        const totalApproved = transactions
           .filter((item) => item.status === "completed")
           .reduce((sum, item) => sum + parseFloat(item.amount), 0);
 
-        console.log("Total approved deposit:", totalApproved);
         setDepositBalance(totalApproved);
+        console.log("Total approved deposit:", totalApproved);
       } catch (err) {
-        console.error("Error fetching user transaction history:", err);
-        setError("Failed to load transaction history");
-      } finally {
-        setLoading(false);
+        console.error("Error fetching data:", err);
+        setError("Failed to load wallet or transaction history");
       }
+      // finally {
+      //   setLoading(false);
+      // }
     }
 
     fetchUser();
@@ -76,7 +86,7 @@ const TradingDashboard = ({ setActiveTab }) => {
           </div>
 
           <div className="text-3xl font-bold">
-            {showBalance ? "$0.00" : "••••••"}
+            {showBalance ? `$${walletBalance ?? 0}` : "••••••"}
           </div>
         </div>
 

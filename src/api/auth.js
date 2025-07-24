@@ -75,3 +75,23 @@ export const get_all_transactions = async () => {
     throw error;
   }
 };
+
+export const get_my_balance = async () => {
+  try {
+    const response = await axiosClient.get("/investment/wallet/0"); //there's only 1 wallet per user hence /0
+    return response;
+  } catch (error) {
+    if (error.response) return error.response.data;
+    throw error;
+  }
+};
+
+export const get_all_balance = async () => {
+  try {
+    const response = await axiosClient.get("/investment/wallet/");
+    return response;
+  } catch (error) {
+    if (error.response) return error.response.data;
+    throw error;
+  }
+};
