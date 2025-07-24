@@ -24,6 +24,12 @@ export default function InvestmentForm() {
     "paypal",
     "cryptocurrency",
   ];
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     setIsLoading(true);
@@ -62,13 +68,6 @@ export default function InvestmentForm() {
     } catch (error) {
       setError(error);
     }
-  };
-
-  const handleInputChange = (field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
   };
 
   return (
