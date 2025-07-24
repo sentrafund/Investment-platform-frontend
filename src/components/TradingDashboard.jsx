@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, EyeOff, Wallet, CreditCard, TrendingUp } from "lucide-react";
 import wallet from "../assets/wallet.png";
 import deposit from "../assets/deposit.png";
 import fundaccount from "../assets/fundaccount.png";
 import CoinFeedDashboard from "./CoinFeedDashboard";
+import { get_all_transactions } from "../api/auth";
+
 const TradingDashboard = ({ setActiveTab }) => {
+  const [depositBalace, setDepositBalance] = useState(0);
   const [showBalance, setShowBalance] = useState(true);
   const [showDepositAmount, setShowDepositAmount] = useState(true);
 
@@ -16,8 +19,37 @@ const TradingDashboard = ({ setActiveTab }) => {
     setShowDepositAmount(!showDepositAmount);
   };
 
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await get_all_transactions();
+        const data = response.data;
+
+        // Sort by created_at DESC (newest first)
+        const sorted = [...data].sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+
+        // ✅ Sum all approved deposits
+        const totalApproved = sorted
+          .filter((item) => item.status === "completed")
+          .reduce((sum, item) => sum + parseFloat(item.amount), 0);
+
+        console.log("Total approved deposit:", totalApproved);
+        setDepositBalance(totalApproved);
+      } catch (err) {
+        console.error("Error fetching user transaction history:", err);
+        setError("Failed to load transaction history");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUser();
+  }, []);
+
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 bg-gray-50 min-h-screen">
+    <div className="w-full max-w-4xl mx-auto p-4 bg-gray-50">
       {/* Cards Container */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         {/* Account Balance Card */}
@@ -33,7 +65,8 @@ const TradingDashboard = ({ setActiveTab }) => {
             <button
               onClick={toggleBalanceVisibility}
               className="p-2 hover:bg-blue-700 rounded-lg transition-colors duration-200"
-              aria-label="Toggle balance visibility">
+              aria-label="Toggle balance visibility"
+            >
               {showBalance ? (
                 <Eye className="w-5 h-5 cursor-pointer" />
               ) : (
@@ -59,7 +92,8 @@ const TradingDashboard = ({ setActiveTab }) => {
             <button
               onClick={toggleDepositVisibility}
               className="p-2 hover:bg-blue-700 rounded-lg transition-colors duration-200"
-              aria-label="Toggle deposit amount visibility">
+              aria-label="Toggle deposit amount visibility"
+            >
               {showDepositAmount ? (
                 <Eye className="w-5 h-5 cursor-pointer" />
               ) : (
@@ -70,11 +104,12 @@ const TradingDashboard = ({ setActiveTab }) => {
 
           <div className="flex items-center justify-between space-x-2 text-white  rounded-lg font-medium">
             <div className="text-3xl font-bold">
-              {showDepositAmount ? "$0.00" : "••••••"}
+              {showDepositAmount ? `$${depositBalace}` : "••••••"}
             </div>
             <div
               className=" rounded-sm flex items-center gap-2 justify-center"
-              onClick={() => setActiveTab("Deposit")}>
+              onClick={() => setActiveTab("Deposit")}
+            >
               <img
                 src={fundaccount}
                 alt="fund account"
@@ -85,10 +120,10 @@ const TradingDashboard = ({ setActiveTab }) => {
           </div>
         </div>
       </div>
-      <div className="text-sm text-[#666666] font-medium">
+      {/* <div className="text-sm text-[#666666] font-medium">
         Duration: No trade
       </div>
-      <CoinFeedDashboard />
+      <CoinFeedDashboard /> */}
     </div>
   );
 };
