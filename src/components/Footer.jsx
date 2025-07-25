@@ -118,7 +118,7 @@ function Footer() {
               "Privacy Policy",
               "Terms of Service",
               "Risk Disclosure",
-              "Disclaimer: Built independently. Developer is not involved in content, intent, or site operations.",
+              // "Disclaimer: Built independently. Developer is not involved in content, intent, or site operations.",
             ].map((item, idx) => (
               <span
                 key={idx}
