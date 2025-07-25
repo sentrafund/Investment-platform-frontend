@@ -114,16 +114,19 @@ function Footer() {
             <span>2025 Sentrafund. All rights reserved</span>
           </div>
           <div className="flex flex-wrap gap-4 justify-center">
-            {["Privacy Policy", "Terms of Service", "Risk Disclosure"].map(
-              (item, idx) => (
-                <span
-                  key={idx}
-                  className="hover:text-yellow-500 cursor-pointer transition"
-                >
-                  {item}
-                </span>
-              )
-            )}
+            {[
+              "Privacy Policy",
+              "Terms of Service",
+              "Risk Disclosure",
+              "Disclaimer: Built independently. Developer is not involved in content, intent, or site operations.",
+            ].map((item, idx) => (
+              <span
+                key={idx}
+                className="hover:text-yellow-500 cursor-pointer transition"
+              >
+                {item}
+              </span>
+            ))}
           </div>
         </div>
       </div>
