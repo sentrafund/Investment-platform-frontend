@@ -19,7 +19,7 @@ export default function InvestmentPlanCard() {
   const [copied, setCopied] = useState(false);
   const [hoveredPayment, setHoveredPayment] = useState(null);
 
-  const btcAddress = "1G4mMv9ad3M8KR3ctQZX5pUyMP4Whv3RG3";
+  const btcAddress = "bc1qlfg69u3kypmny2qrq0fzzfwqct24h9kdk0tety";
 
   const paymentMethods = [
     { name: "PayPal" },
