@@ -4,10 +4,7 @@ import { make_deposit } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function InvestmentForm() {
-  const [formData, setFormData] = useState({
-    reference_plan: "basic",
-    amount: 0,
-  });
+  const [formData, setFormData] = useState({});
 
   const navigate = useNavigate();
   const [error, setError] = useState("");
